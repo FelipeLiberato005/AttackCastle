@@ -1,0 +1,2 @@
+confirmar()
+gerar_personagem()

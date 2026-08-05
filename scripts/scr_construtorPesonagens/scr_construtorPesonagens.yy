@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_construtorPesonagens",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_construtorPesonagens",
+  "parent":{
+    "name":"CONSTRUTOR",
+    "path":"folders/Script/CONSTRUTOR.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

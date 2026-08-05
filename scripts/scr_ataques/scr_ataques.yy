@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_ataques",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_ataques",
+  "parent":{
+    "name":"FUNCOES_CONSTANTES",
+    "path":"folders/Script/FUNCOES_CONSTANTES.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
