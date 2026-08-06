@@ -56,7 +56,7 @@ array_push(cavaleiro.tipo_ataque,
 var santa_enemy = new criar_personagem(
     "Santa_Enemy",
     make_colour_rgb(255, 0, 0),
-    obj_enemy1,
+    obj_enemy2,
     spr_santa,
     false,
     200

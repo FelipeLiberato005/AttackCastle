@@ -1,2 +1,0 @@
-confirmar()
-gerar_personagem()

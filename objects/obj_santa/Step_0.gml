@@ -1,3 +1,5 @@
-// Inherit the parent event
-event_inherited();
+
+roda_estado()
+morre()
+colidi_parede()
 

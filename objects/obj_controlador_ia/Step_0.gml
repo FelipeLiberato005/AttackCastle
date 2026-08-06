@@ -1,5 +1,0 @@
-troca_skin()
-toca_chao()
-roda_estado()
-escolhe_personagem()
-morre()

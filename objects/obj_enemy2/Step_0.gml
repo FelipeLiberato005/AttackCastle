@@ -1,0 +1,3 @@
+bati_parede()
+movimenta()
+

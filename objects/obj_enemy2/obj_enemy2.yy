@@ -3,6 +3,7 @@
   "%Name":"obj_enemy2",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
   "name":"obj_enemy2",
@@ -11,10 +12,7 @@
     "name":"IA",
     "path":"folders/Object/IA.yy",
   },
-  "parentObjectId":{
-    "name":"obj_controlador_ia",
-    "path":"objects/obj_controlador_ia/obj_controlador_ia.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
