@@ -1,5 +1,5 @@
-sprite_index = spr_cavaleiro
-image_blend = make_colour_rgb(255, 0, 0)
+sprite_index = spr_santa
+image_blend = make_colour_rgb(0, 255, 0)
 
 vel = 1
 vida = 0

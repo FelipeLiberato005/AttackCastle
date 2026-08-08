@@ -1,5 +1,6 @@
 
 roda_estado()
-morre()
 colidi_parede()
+dano_alvo()
+testa_vida()
 

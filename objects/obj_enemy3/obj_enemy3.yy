@@ -1,16 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"obj_gerador_player",
+  "%Name":"obj_enemy3",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_gerador_player",
+  "name":"obj_enemy3",
   "overriddenProperties":[],
   "parent":{
-    "name":"CONTROLADORES",
-    "path":"folders/Object/CONTROLADORES.yy",
+    "name":"IA",
+    "path":"folders/Object/IA.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -30,10 +31,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_gerador",
-    "path":"sprites/spr_gerador/spr_gerador.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }

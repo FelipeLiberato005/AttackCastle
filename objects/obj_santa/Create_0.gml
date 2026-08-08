@@ -1,5 +1,5 @@
 #region VARIAVEIS
-
+batata = 0
 atual = 0
 
 nome_personagem = undefined
@@ -14,6 +14,9 @@ ataquei = false
 cron = 0
 tempo = 0
 vel = 0.5
+
+//vida = 0
+
 
 _sprite = spr_santa
 sprite_index = _sprite
@@ -49,7 +52,8 @@ dano_atual_p = 0
 cronometro_carga = 0
 
 ataques = []
-
+lista_alvos = []
+alvo_atual = undefined
 #endregion
 
 
@@ -90,40 +94,52 @@ estado_idle.roda = function()
 
 procura_alvo.inicia = function()
 {
+    randomise()
     image_blend = c_aqua
+    var lista_alvos = [];
+
+    for (var i = 0; i < array_length(global.arena); i++)
+    {
+        var alvo = global.arena[i];
+
+        if (!alvo.is_hero && instance_exists(alvo.obj))
+        {
+            array_push(lista_alvos, alvo);
+        }
+    }
+
+    if (array_length(lista_alvos) > 0)
+    {
+        var indice = irandom(array_length(lista_alvos) - 1);
+
+        alvo_atual = lista_alvos[indice];
+    }
 }
 
 
 procura_alvo.roda = function()
 {
-    hspeed = 0.5
-    direction = point_direction(x, y, obj_enemy2.x, obj_enemy2.y)
-    
-}
+    if (!instance_exists(alvo_atual.obj))
+    {
+        troca_estado(procura_alvo);
+        return;
+    }
 
-#endregion
+    var _x = alvo_atual.obj.x;
+    var _y = alvo_atual.obj.y;
 
+    direction = point_direction(x, y, _x - 25, _y);
 
+    hspeed = 2;
 
-
-
-
-
-#region ESTADO RUN
-estado_run.inicia = function()
-{
-    
-}
-
-estado_run.roda = function()
-{
+    if (point_distance(x, y, _x, _y) < 25)
+    {
+        troca_estado(estado_atack);
+    }
    
 }
+
 #endregion
-
-
-
-
 
 
 
@@ -133,13 +149,18 @@ estado_run.roda = function()
 
 estado_atack.inicia = function()
 {
-    
+    vspeed = 0
+    hspeed = 0
     
 }
 
 estado_atack.roda = function()
 {
-    
+    var p = interacao_lista(global.personagens)
+    if p.obj == object_index
+    {
+        alvo_atual.vida_atual.perde_vida(ataques[0][0].dano)    
+    }
     
 }
 
@@ -195,19 +216,12 @@ estado_congelado.roda = function()
 
 mostra_vida = function()
 {
-    var tam = array_length(global.batalha)
-    for (var i = 0; i < tam; i++) {
-    	var _info = global.batalha[i]
-        var nome = _info.nome
-        var _x = _info.obj.x
-        var _y = _info.obj.y
-        
-       
+    var p = interacao_lista(global.personagens)
+    if p.obj == object_index
+    {
         draw_set_font(fnt_personagens)
-        _info.vida_atual.desenha_vida(_x - 5, _y - 30, 10, 1, , , , true)
-        draw_text(_x - 8, _y - 50, _info.vida_atual.vida)
+        p.vida_atual.desenha_vida(x - 5, y - 30, 10, 1)
         draw_set_font(-1)
-        
     }
 }
 
@@ -236,6 +250,11 @@ colidi_parede = function()
 }
 
 
+dano_alvo = function()
+{
+    
+}
+
 #endregion
 
 
@@ -252,13 +271,51 @@ colidi_parede = function()
 
 #region PEGANDO ATRIBUTOS DO CONSTRUTOR
 
+pegando_vida = function()
+{
+    var _list = array_length(global.personagens)
+    
+    for( var i = 0; i < _list; i++)
+    {
+        var personagem = global.personagens[i]
+        
+        if personagem.obj == object_index
+        {
+            vida = personagem.vida_base
+        }
+        
+    }
+}
 
 
+pega_habilidade = function()
+{
+    var list = interacao_lista(global.personagens)
+    
+    if list.obj == object_index
+    {
+        array_push(ataques, list.tipo_ataque)
+    }
+}
+
+
+testa_vida = function()
+{
+    var p = interacao_lista(global.personagens)
+    
+    if keyboard_check_pressed(ord("P"))
+    {
+        if p.obj == object_index
+    {
+        p.vida_atual.perde_vida(5)
+    }    
+    }
+}
 #endregion
 
 
 
-
+pega_habilidade()
 
 
 inicia_estado(estado_idle)

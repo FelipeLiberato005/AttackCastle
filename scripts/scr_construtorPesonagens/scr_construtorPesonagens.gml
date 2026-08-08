@@ -34,11 +34,11 @@ var santa = new criar_personagem(
     )
 
 array_push(santa.tipo_ataque, 
-        {nome:"ATK", recarga:5})
+        {nome:"ATK", recarga:5, dano: 15})
 #endregion
 
 
-
+#region CAVALEIRO
 var cavaleiro = new criar_personagem(
     "Cavaleiro",
     make_colour_rgb(255, 255, 255),
@@ -49,19 +49,12 @@ var cavaleiro = new criar_personagem(
     18
 )
 array_push(cavaleiro.tipo_ataque, 
-        {nome:"ATK", recarga:2})
+        {nome:"ATK", recarga:2, dano:5})
 
 
+#endregion
 
-var santa_enemy = new criar_personagem(
-    "Santa_Enemy",
-    make_colour_rgb(255, 0, 0),
-    obj_enemy2,
-    spr_santa,
-    false,
-    200
-)
-
+#region ENEMY
 var cavaleiro_enemy = new criar_personagem(
     "Cavaleiro_Enemy",
     make_colour_rgb(255, 0, 0),
@@ -71,12 +64,23 @@ var cavaleiro_enemy = new criar_personagem(
     500
 )
 
-global.personagens = [santa, cavaleiro]
-global.batalha = [cavaleiro, santa]
 
+var santa_enemy = new criar_personagem(
+    "Santa_Enemy",
+    make_colour_rgb(0, 255, 0),
+    obj_enemy3,
+    spr_santa,
+    false,
+    500
+)
+#endregion
+
+
+global.personagens = [santa, cavaleiro]
 
 global.p_enemy = [cavaleiro_enemy, santa_enemy]
-global.enemy = [cavaleiro_enemy, santa_enemy]
+
+global.arena = [santa, cavaleiro, santa_enemy, cavaleiro_enemy]
 
 
 
