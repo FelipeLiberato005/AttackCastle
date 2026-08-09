@@ -2,8 +2,6 @@ sprite_index = spr_cavaleiro
 image_blend = make_colour_rgb(255, 0, 0)
 
 vel = 1
-vida = 0
-vida_atual = new scr_vida(vida)
 //vspeed = vel;
 
 #region METODOS TESTE
@@ -32,12 +30,35 @@ movimenta = function()
 
 desenha_vida = function ()
 {
-    var p = interacao_lista(global.p_enemy)
-    if p.obj == object_index
+    var list = array_length(global.p_enemy)
+    for( var i = 0; i < list; i++)
     {
-        draw_set_font(fnt_personagens)
-        p.vida_atual.desenha_vida(x - 5, y - 30, 10, 1)
-        draw_set_font(-1)
+        var p = global.p_enemy[i]
+        
+        if(p.obj == object_index)
+        {
+            draw_set_font(fnt_personagens)
+            p.vida_atual.desenha_vida(x - 5, y - 30, 10, 1)
+            draw_text(x - 5, y - 45, p.vida_atual.vida)
+            draw_set_font(-1)
+        }
+    }
+}
+
+morre = function()
+{
+    var list = array_length(global.arena)
+    for( var i = 0; i < list; i++)
+    {
+        var p = global.arena[i]
+        
+        if p.obj == object_index
+        {
+            if p.vida_atual.vida <= 0
+            {
+                instance_destroy()
+            }
+        }
     }
 }
 

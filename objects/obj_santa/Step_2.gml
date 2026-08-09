@@ -4,8 +4,8 @@
 
 
 while (batata <= 0) {
-    show_debug_message(ataques[0][0].dano)
+    show_debug_message(ataques[0][0].recarga)
     batata++;	
 }
 
-show_debug_message(alvo_atual)
+//show_debug_message(alvo_atual)

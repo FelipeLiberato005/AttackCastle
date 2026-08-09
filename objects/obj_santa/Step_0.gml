@@ -1,6 +1,7 @@
 
 roda_estado()
 colidi_parede()
-dano_alvo()
 testa_vida()
+recarrega_ataque()
 
+deleta_personagem(alvo_atual, global.arena)

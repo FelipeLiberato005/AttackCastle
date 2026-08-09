@@ -34,7 +34,7 @@ var santa = new criar_personagem(
     )
 
 array_push(santa.tipo_ataque, 
-        {nome:"ATK", recarga:5, dano: 15})
+        {nome:"ATK", recarga:0.8, dano: 15})
 #endregion
 
 
@@ -61,7 +61,7 @@ var cavaleiro_enemy = new criar_personagem(
     obj_enemy2,
     spr_cavaleiro,
     false,
-    500
+    50
 )
 
 
@@ -71,7 +71,7 @@ var santa_enemy = new criar_personagem(
     obj_enemy3,
     spr_santa,
     false,
-    500
+    50
 )
 #endregion
 

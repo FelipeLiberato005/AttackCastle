@@ -23,7 +23,7 @@ sprite_index = _sprite
 image_xscale = -1
 #endregion
 
-
+randomise()
 
 
 
@@ -54,6 +54,8 @@ cronometro_carga = 0
 ataques = []
 lista_alvos = []
 alvo_atual = undefined
+tempo_recarga = 0
+ataca = false
 #endregion
 
 
@@ -64,6 +66,10 @@ alvo_atual = undefined
 
 
 #region Estados Pesonagem
+
+
+
+
 
 #region ESTADO IDLE
 estado_idle.inicia = function()
@@ -94,12 +100,18 @@ estado_idle.roda = function()
 
 procura_alvo.inicia = function()
 {
-    randomise()
+    
     image_blend = c_aqua
+    //deleta_personagem(alvo_atual, global.arena)
+    alvo_atual = undefined
+    show_message(array_length(global.arena))
     var lista_alvos = [];
-
+    show_message("Primeiro: " + string(alvo_atual))
+    
+    
     for (var i = 0; i < array_length(global.arena); i++)
     {
+        
         var alvo = global.arena[i];
 
         if (!alvo.is_hero && instance_exists(alvo.obj))
@@ -113,12 +125,34 @@ procura_alvo.inicia = function()
         var indice = irandom(array_length(lista_alvos) - 1);
 
         alvo_atual = lista_alvos[indice];
+        show_message("Segundo: " + string(alvo_atual.nome))
+        troca_estado(estado_run)
+        
     }
 }
 
 
 procura_alvo.roda = function()
 {
+    
+}
+#endregion
+
+
+
+
+
+
+#region DIREÇÃO AO ALVO
+estado_run.inicia = function()
+{
+    image_blend = c_orange
+}
+
+
+estado_run.roda = function()
+{
+ 
     if (!instance_exists(alvo_atual.obj))
     {
         troca_estado(procura_alvo);
@@ -130,7 +164,8 @@ procura_alvo.roda = function()
 
     direction = point_direction(x, y, _x - 25, _y);
 
-    hspeed = 2;
+    hspeed = 1;
+    vspeed = 1
 
     if (point_distance(x, y, _x, _y) < 25)
     {
@@ -144,13 +179,13 @@ procura_alvo.roda = function()
 
 
 
-
 #region ESTADO ATACK
 
 estado_atack.inicia = function()
 {
     vspeed = 0
     hspeed = 0
+    image_blend = c_maroon
     
 }
 
@@ -159,8 +194,18 @@ estado_atack.roda = function()
     var p = interacao_lista(global.personagens)
     if p.obj == object_index
     {
-        alvo_atual.vida_atual.perde_vida(ataques[0][0].dano)    
+        if tempo_recarga >= (ataques[0][0].recarga * room_speed)
+        {
+            alvo_atual.vida_atual.perde_vida(ataques[0][0].dano)
+            tempo_recarga = 0
+            
+        }
     }
+    
+   if alvo_atual.vida_atual.vida <= 0 {
+    deleta_personagem(alvo_atual, global.arena)
+    troca_estado(procura_alvo)
+}
     
 }
 
@@ -249,11 +294,11 @@ colidi_parede = function()
     move_and_collide(0, 0, obj_colisor)
 }
 
-
-dano_alvo = function()
+recarrega_ataque = function()
 {
-    
+    tempo_recarga++;
 }
+
 
 #endregion
 
