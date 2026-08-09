@@ -49,7 +49,7 @@ var cavaleiro = new criar_personagem(
     18
 )
 array_push(cavaleiro.tipo_ataque, 
-        {nome:"ATK", recarga:2, dano:5})
+        {nome:"ATK", recarga:1.5, dano:10})
 
 
 #endregion

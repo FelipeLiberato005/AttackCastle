@@ -3,9 +3,5 @@
 //show_debug_message("Nome: " + nome_personagem + " " + string(ataques))
 
 
-while (batata <= 0) {
-    show_debug_message(ataques[0][0].recarga)
-    batata++;	
-}
 
 //show_debug_message(alvo_atual)

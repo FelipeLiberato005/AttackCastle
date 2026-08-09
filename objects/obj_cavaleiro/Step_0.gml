@@ -1,12 +1,7 @@
-troca_skin()
-toca_chao()
 roda_estado()
-escolhe_personagem()
-morre()
+colidi_parede()
 testa_vida()
-pega_dano()
-aumenta_dano_atual()
-pega_ataques()
-reseta_recarga()
+recarrega_ataque()
 
+deleta_personagem(alvo_atual, global.arena)
 

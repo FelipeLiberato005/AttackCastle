@@ -47,4 +47,21 @@ desenha_vida = function ()
     
 }
 
+morre = function()
+{
+    var list = array_length(global.arena)
+    for( var i = 0; i < list; i++)
+    {
+        var p = global.arena[i]
+        
+        if p.obj == object_index
+        {
+            if p.vida_atual.vida <= 0
+            {
+                instance_destroy()
+            }
+        }
+    }
+}
+
 #endregion

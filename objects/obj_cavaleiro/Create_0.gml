@@ -1,12 +1,11 @@
 #region VARIAVEIS
-gravidade = 1
-vel = 1
-
+batata = 0
 atual = 0
-chao = noone
-valor_interacao = 2
+
 nome_personagem = undefined
 objeto_player = undefined
+
+
 distancia_enemy = 30
 alvo_enemy = undefined
 
@@ -14,23 +13,29 @@ ataquei = false
 
 cron = 0
 tempo = 0
+vel = 0.5
 
-_sprite = noone
+//vida = 0
+
+
+_sprite = spr_cavaleiro
 sprite_index = _sprite
 image_xscale = -1
 #endregion
 
-
+randomise()
 
 
 
 
 
 #region VARIAVEIS DE ESTADOS
-estado_idle     = new estado()
-estado_run      = new estado()
-estado_atack      = new estado()
-estado_congelado      = new estado()
+estado_idle         = new estado()
+procura_alvo        = new estado()
+estado_run          = new estado()
+estado_atack        = new estado()
+estado_congelado    = new estado()
+estado_morte        = new estado()
 #endregion
 
 
@@ -48,7 +53,10 @@ dano_atual_p = 0
 cronometro_carga = 0
 
 ataques = []
-
+lista_alvos = []
+alvo_atual = noone
+tempo_recarga = 0
+ataca = false
 #endregion
 
 
@@ -60,6 +68,10 @@ ataques = []
 
 #region Estados Pesonagem
 
+
+
+
+
 #region ESTADO IDLE
 estado_idle.inicia = function()
 {
@@ -69,14 +81,11 @@ estado_idle.inicia = function()
 
 estado_idle.roda = function()
 {
-    
-    if !chao{
-        y += gravidade
+   
+    if mouse_check_button_pressed(mb_left)
+    {
+        troca_estado(procura_alvo)
     }
-    else {
-    	troca_estado(estado_run)
-    }
-    
     
 }
 
@@ -88,40 +97,91 @@ estado_idle.roda = function()
 
 
 
-#region ESTADO RUN
-estado_run.inicia = function()
+#region PROCURANDO O ALVO
+
+procura_alvo.inicia = function()
+{
+    
+    image_blend = c_aqua
+    global.arena = deleta_personagem(alvo_atual, global.arena);
+    alvo_atual = noone;
+    var lista_alvos = [];
+    
+    
+    for (var i = 0; i < array_length(global.arena); i++)
+    {
+        
+        var alvo = global.arena[i];
+
+        if (!alvo.is_hero && instance_exists(alvo.obj))
+        {
+            array_push(lista_alvos, alvo);
+        }
+    }
+
+    if (array_length(lista_alvos) > 0)
+    {
+        var indice = irandom(array_length(lista_alvos) - 1);
+
+        alvo_atual = lista_alvos[indice];
+
+        troca_estado(estado_run);
+    }
+}
+
+
+procura_alvo.roda = function()
 {
     
 }
+#endregion
+
+
+
+
+
+
+#region DIREÇÃO AO ALVO
+estado_run.inicia = function()
+{
+    image_blend = c_orange
+    
+}
+
 
 estado_run.roda = function()
 {
-    hspeed = vel
-    
-    var _lista = array_length(global.enemy)
-    
-    for(var i = 0; i < _lista; i++)
+ 
+    if (!instance_exists(alvo_atual.obj))
     {
-        var _info = global.enemy[i]
-        var enemy = _info.obj
-        
-        
-        if(instance_exists(enemy))
-        {
-            if(point_distance(objeto_player.x, objeto_player.y, enemy.x, enemy.y) < distancia_enemy)
-        {
-            troca_estado(estado_atack)
-        }
-        }
-        
+        troca_estado(procura_alvo);
+        return;
     }
+
+    var _x = alvo_atual.obj.x;
+    var _y = alvo_atual.obj.y;
+    
+    
+    var _dist = point_distance(x, y, _x, _y);
+
+    
+   
+    direction = point_direction(x, y, _x, _y);
+
+    x += lengthdir_x(2, direction);
+    y += lengthdir_y(2, direction);
+    
+    
+    
+      if (point_distance(x, y, _x, _y) < 25)
+    {
+        troca_estado(estado_atack);
+    }
+    
+   
 }
+
 #endregion
-
-
-
-
-
 
 
 
@@ -130,38 +190,36 @@ estado_run.roda = function()
 
 estado_atack.inicia = function()
 {
-    
-    hspeed = 0;
+    vspeed = 0
+    hspeed = 0
+    image_blend = c_maroon
     
 }
 
 estado_atack.roda = function()
 {
     
-    var _lista = array_length(global.enemy)
+    var list = array_length(global.personagens)
     
-    for(var i = 0; i < _lista; i++)
+    for( var i = 0; i < list; i++)
     {
-        var _info = global.enemy[i]
-        var enemy = _info.obj
-        
-        if cronometro_carga <= 0
+        var p = global.personagens[i]    
+    }
+    if p.obj == object_index
+    {
+        if tempo_recarga >= (ataques[0][0].recarga * room_speed)
         {
-            _info.vida_atual.perde_vida(dano_atual_p) 
-                 
+            alvo_atual.vida_atual.perde_vida(ataques[0][0].dano)
+            tempo_recarga = 0
+            
         }
-        cronometro_carga++
-        
-        //troca_estado(estado_congelado) 
     }
     
-    if(instance_exists(enemy))
-        {
-            if(point_distance(objeto_player.x, objeto_player.y, enemy.x, enemy.y) < distancia_enemy)
-        {
-            troca_estado(estado_run)
-        }
-        }
+   if alvo_atual.vida_atual.vida <= 0 {
+    //instance_destroy(alvo_atual.obj.id)
+    //show_message("Cavaleiro: " + alvo_atual.vida_atual.vida)
+    troca_estado(procura_alvo)
+}
     
 }
 
@@ -212,51 +270,17 @@ estado_congelado.roda = function()
 
 
 #region Metodos
-toca_chao = function()
-{
-    chao = place_meeting(x, y - valor_interacao, obj_colisor)
-}
-
-
-escolhe_personagem = function()
-{
-    sprite_index = _sprite
-}
-
-
-
-
-troca_skin = function()
-{
-    var lista_p = array_length(global.personagens)
-    
-    for(var i = 0; i < lista_p; i++)
-    {
-        if(global.personagens[i].nome == nome_personagem)
-        {
-            _sprite = global.personagens[i].sprite
-        }
-    }
-}
-
 
 
 
 mostra_vida = function()
 {
-    var tam = array_length(global.batalha)
-    for (var i = 0; i < tam; i++) {
-    	var _info = global.batalha[i]
-        var nome = _info.nome
-        var _x = _info.obj.x
-        var _y = _info.obj.y
-        
-       
+    var p = interacao_lista(global.personagens)
+    if p.obj == object_index
+    {
         draw_set_font(fnt_personagens)
-        _info.vida_atual.desenha_vida(_x - 5, _y - 30, 10, 1, , , , true)
-        draw_text(_x - 8, _y - 50, _info.vida_atual.vida)
+        p.vida_atual.desenha_vida(x - 5, y - 30, 10, 1)
         draw_set_font(-1)
-        
     }
 }
 
@@ -278,24 +302,18 @@ morre = function()
 }
 
 
-testa_vida = function()
+colidi_parede = function()
 {
-    if keyboard_check_pressed(ord("F"))
-    {
-        var lista = array_length(global.batalha)
-        
-        for (var i = 0; i < lista; i++)
-        {
-            var _info = global.batalha[i]
-            var nome = _info.nome
-            
-            if nome == "Cavaleiro"
-            {
-                _info.vida_atual.perde_vida(5)
-            }
-        }
-    }
+    chao = place_meeting(x, y, obj_colisor)
+    move_and_collide(0, 0, obj_colisor)
 }
+
+recarrega_ataque = function()
+{
+    tempo_recarga++;
+}
+
+
 #endregion
 
 
@@ -312,81 +330,56 @@ testa_vida = function()
 
 #region PEGANDO ATRIBUTOS DO CONSTRUTOR
 
-pega_dano = function()
+pegando_vida = function()
 {
+    var _list = array_length(global.personagens)
     
-    var lista = array_length(global.batalha)
-    
-    for( var i = 0; i < lista; i++)
+    for( var i = 0; i < _list; i++)
     {
-        var info = global.batalha[i]
+        var personagem = global.personagens[i]
         
-        if info.obj == objeto_player
+        if personagem.obj == object_index
         {
-            dano_atual_p = info.dano_atual
-        }
-    }
-    
-}
-
-
-aumenta_dano_atual = function()
-{
-    if keyboard_check_pressed(ord("Z"))
-    {
-        interacao_lista_dano(global.batalha, 10)    
-    }
-    
-}
-
-
-
-pega_ataques = function()
-{
-    
-    //var info = interacao_lista(global.batalha)
-     var _lista = array_length(global.batalha)
-    
-    for( var i = 0; i < _lista; i++)
-    {
-        var info =  global.batalha[i]
-        
-        if info.obj == objeto_player
-        {
-            if array_length(ataques) <= 0
-            {
-                array_push(ataques, info.tipo_ataque)    
-            }
-            
+            vida = personagem.vida_base
         }
         
     }
-    
-    
 }
 
 
-reseta_recarga = function()
+pega_habilidade = function()
 {
-    if array_length(ataques) >= 0
-    { 
-        tempo = room_speed * ataques[0][0].recarga    
-        cron++ 
-        if cron >= tempo
+    var list = array_length(global.arena)
+    
+    for( var i = 0; i < list; i++)
+    {
+        var p = global.arena[i]
+        
+        if p.obj == object_index
         {
-            cron = 0;
-            cronometro_carga = 0;
+            array_push(ataques, p.tipo_ataque)
         }
     }
-    
-    
 }
 
+
+testa_vida = function()
+{
+    var p = interacao_lista(global.personagens)
+    
+    if keyboard_check_pressed(ord("P"))
+    {
+        if p.obj == object_index
+    {
+        p.vida_atual.perde_vida(5)
+    }    
+    }
+}
 #endregion
 
 
 
 
+pega_habilidade()
 
-
-inicia_estado(estado_idle)
+inicia_estado(procura_alvo)

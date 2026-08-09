@@ -1,5 +1,4 @@
 
 bati_parede()
-//morre()
-//movimenta()
 
+//movimenta()

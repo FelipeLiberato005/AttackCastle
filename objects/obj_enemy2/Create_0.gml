@@ -51,15 +51,15 @@ morre = function()
     for( var i = 0; i < list; i++)
     {
         var p = global.arena[i]
-        
-        if p.obj == object_index
+    }
+    if p.obj == object_index
         {
+            show_debug_message(p.vida_atual.vida)
             if p.vida_atual.vida <= 0
             {
                 instance_destroy()
             }
         }
-    }
 }
 
 #endregion

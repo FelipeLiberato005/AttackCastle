@@ -25,16 +25,24 @@ function  define_direcao(_dir, _sprite)
 
 function deleta_personagem(alvo, lista)
 {
-    if alvo != undefined
-{
-    if alvo <= 0 {
-    var i = array_get_index(lista, alvo)
-    array_delete(lista, i, 1)
-}       
-}
- 
-}
+    
+   {
+    if (alvo != noone)
+    {
+        var indice = array_get_index(lista, alvo);
 
+        if (indice != -1)
+        {
+            array_delete(lista, indice, 1);
+        }
+    }
+
+    return lista;
+}
+}
+    
+    
+    
 function organiza_lista(_lista)
 {
     lista_batalha = array_length(_lista)

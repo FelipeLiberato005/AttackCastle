@@ -35,6 +35,7 @@ procura_alvo        = new estado()
 estado_run          = new estado()
 estado_atack        = new estado()
 estado_congelado    = new estado()
+estado_morte        = new estado()
 #endregion
 
 
@@ -53,7 +54,7 @@ cronometro_carga = 0
 
 ataques = []
 lista_alvos = []
-alvo_atual = undefined
+alvo_atual = noone
 tempo_recarga = 0
 ataca = false
 #endregion
@@ -102,11 +103,9 @@ procura_alvo.inicia = function()
 {
     
     image_blend = c_aqua
-    //deleta_personagem(alvo_atual, global.arena)
-    alvo_atual = undefined
-    show_message(array_length(global.arena))
+    global.arena = deleta_personagem(alvo_atual, global.arena);
+    alvo_atual = noone;
     var lista_alvos = [];
-    show_message("Primeiro: " + string(alvo_atual))
     
     
     for (var i = 0; i < array_length(global.arena); i++)
@@ -125,9 +124,8 @@ procura_alvo.inicia = function()
         var indice = irandom(array_length(lista_alvos) - 1);
 
         alvo_atual = lista_alvos[indice];
-        show_message("Segundo: " + string(alvo_atual.nome))
-        troca_estado(estado_run)
-        
+
+        troca_estado(estado_run);
     }
 }
 
@@ -147,6 +145,7 @@ procura_alvo.roda = function()
 estado_run.inicia = function()
 {
     image_blend = c_orange
+    
 }
 
 
@@ -161,16 +160,24 @@ estado_run.roda = function()
 
     var _x = alvo_atual.obj.x;
     var _y = alvo_atual.obj.y;
+    
+    
+    var _dist = point_distance(x, y, _x, _y);
 
-    direction = point_direction(x, y, _x - 25, _y);
+    
+   
+    direction = point_direction(x, y, _x, _y);
 
-    hspeed = 1;
-    vspeed = 1
-
-    if (point_distance(x, y, _x, _y) < 25)
+    x += lengthdir_x(2, direction);
+    y += lengthdir_y(2, direction);
+    
+    
+    
+      if (point_distance(x, y, _x, _y) < 25)
     {
         troca_estado(estado_atack);
     }
+    
    
 }
 
@@ -203,7 +210,8 @@ estado_atack.roda = function()
     }
     
    if alvo_atual.vida_atual.vida <= 0 {
-    deleta_personagem(alvo_atual, global.arena)
+    //instance_destroy(alvo_atual.obj.id)
+    //show_message("Cavaleiro: " + alvo_atual.nome)
     troca_estado(procura_alvo)
 }
     
@@ -363,4 +371,4 @@ testa_vida = function()
 pega_habilidade()
 
 
-inicia_estado(estado_idle)
+inicia_estado(procura_alvo)
