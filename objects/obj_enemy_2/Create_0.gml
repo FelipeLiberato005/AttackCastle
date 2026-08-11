@@ -1,35 +1,20 @@
+
+image_blend = make_colour_rgb(255, 0, 0)
+
+
 #region VARIAVEIS
-batata = 0
-atual = 0
+vel = 1
+alvo_atual = noone
 
-nome_personagem = undefined
-objeto_player = undefined
-
-
-distancia_enemy = 30
-alvo_enemy = undefined
-
-ataquei = false
-
-cron = 0
-tempo = 0
-vel = 0.5
-
-//vida = 0
-
-
-//_sprite = spr_santa
-//sprite_index = _sprite
-image_xscale = -1
+tempo_recarga = 0
+ataques = []
 #endregion
 
-randomise()
 
 
 
 
-
-#region VARIAVEIS DE ESTADOS
+#region VARIAVEIS ESTADOS
 estado_idle         = new estado()
 procura_alvo        = new estado()
 estado_run          = new estado()
@@ -43,65 +28,12 @@ estado_morte        = new estado()
 
 
 
+#region MAQUINAS DE ESTADOS
 
-#region VARIAVEIS ATRIBUTOS PRINCIPAIS
-
-
-dano_atual_p = 0
-
-
-cronometro_carga = 0
-
-ataques = []
-lista_alvos = []
-alvo_atual = noone
-tempo_recarga = 0
-ataca = false
-#endregion
-
-
-
-
-
-
-
-
-#region Estados Pesonagem
-
-
-
-
-
-#region ESTADO IDLE
-estado_idle.inicia = function()
-{
-    
-}
-
-
-estado_idle.roda = function()
-{
-   
-    if mouse_check_button_pressed(mb_left)
-    {
-        troca_estado(procura_alvo)
-    }
-    
-}
-
-#endregion
-
-
-
-
-
-
-
-#region PROCURANDO O ALVO
+#region PROCURA ALVO
 
 procura_alvo.inicia = function()
 {
-    
     global.arena = deleta_personagem(alvo_atual, global.arena);
     alvo_atual = noone;
     var lista_alvos = [];
@@ -112,7 +44,7 @@ procura_alvo.inicia = function()
         
         var alvo = global.arena[i];
 
-        if (!alvo.is_hero && instance_exists(alvo.obj))
+        if (alvo.is_hero == true && instance_exists(alvo.obj))
         {
             array_push(lista_alvos, alvo);
         }
@@ -129,10 +61,12 @@ procura_alvo.inicia = function()
 }
 
 
+
 procura_alvo.roda = function()
 {
     
 }
+
 #endregion
 
 
@@ -140,17 +74,18 @@ procura_alvo.roda = function()
 
 
 
-#region DIREÇÃO AO ALVO
+
+
+#region ESTADO INDO EM DIREÇÃO AO ALVO
 estado_run.inicia = function()
 {
-    
     
 }
 
 
+
 estado_run.roda = function()
 {
- 
     if (!instance_exists(alvo_atual.obj))
     {
         troca_estado(procura_alvo);
@@ -171,16 +106,25 @@ estado_run.roda = function()
     y += lengthdir_y(2, direction);
     
     
+    if (x > _x)
+    {
+        image_xscale = 1;
+    }
+    else
+    {
+        image_xscale = -1;
+    }
+    
     
       if (point_distance(x, y, _x, _y) < 25)
     {
         troca_estado(estado_atack);
     }
     
-   
 }
-
 #endregion
+
+
 
 
 
@@ -191,9 +135,8 @@ estado_atack.inicia = function()
 {
     vspeed = 0
     hspeed = 0
-    
-    
 }
+
 
 estado_atack.roda = function()
 {
@@ -216,9 +159,8 @@ estado_atack.roda = function()
     if alvo_atual.is_morto == true{
         troca_estado(procura_alvo)
     }
- 
-    
 }
+#endregion
 
 #endregion
 
@@ -228,59 +170,25 @@ estado_atack.roda = function()
 
 
 
+#region METODOS TESTE
 
 
-#region ESTADO CONGELADO
 
-estado_congelado.inicia = function()
+desenha_vida = function ()
 {
-    var cor_rgb = make_colour_rgb(0, 200, 255)
-    
-    image_blend = cor_rgb
-    image_speed = 0
-}
-
-
-
-estado_congelado.roda = function()
-{
-    
-}
-#endregion
-
-
-
-#endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#region Metodos
-
-
-
-mostra_vida = function()
-{
-    var p = interacao_lista(global.personagens)
-    if p.obj == object_index
+    var list = array_length(global.p_enemy)
+    for( var i = 0; i < list; i++)
     {
-        draw_set_font(fnt_personagens)
-        p.vida_atual.desenha_vida(x - 5, y - 30, 10, 1)
-        draw_set_font(-1)
+        var p = global.p_enemy[i]
+        
+        if(p.obj == object_index)
+        {
+            draw_set_font(fnt_personagens)
+            p.vida_atual.desenha_vida(x - 5, y - 30, 10, 1)
+            draw_set_font(-1)
+        }
     }
 }
-
 
 morre = function()
 {
@@ -301,6 +209,20 @@ morre = function()
     }
 }
 
+pega_ataques = function()
+{
+    var list = array_length(global.p_enemy)
+    
+    for( var i = 0; i < list; i++)
+    {
+        var p = global.p_enemy[i]
+        
+        if p.obj == object_index
+        {
+            array_push(ataques, p.tipo_ataque)
+        }
+    }
+}
 
 
 recarrega_ataque = function()
@@ -311,11 +233,11 @@ recarrega_ataque = function()
 
 pega_sprit = function()
 {
-     var list = array_length(global.personagens)
+     var list = array_length(global.p_enemy)
     
     for( var i = 0; i < list; i++)
     {
-        var p = global.personagens[i]
+        var p = global.p_enemy[i]
         if p.obj == object_index
         {
             sprite_index = p.sprite
@@ -323,40 +245,10 @@ pega_sprit = function()
     }
 }
 
-
 #endregion
 
 
-
-
-
-
-
-
-
-
-
-
-
-#region PEGANDO ATRIBUTOS DO CONSTRUTOR
-
-
-pega_habilidade = function()
-{
-    var list = interacao_lista(global.personagens)
-    
-    if list.obj == object_index
-    {
-        array_push(ataques, list.tipo_ataque)
-    }
-}
-
-
-#endregion
-
-
-
-pega_habilidade()
+pega_ataques()
 pega_sprit()
 
 inicia_estado(procura_alvo)

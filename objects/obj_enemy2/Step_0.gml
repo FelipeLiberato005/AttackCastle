@@ -1,4 +1,0 @@
-
-bati_parede()
-
-//movimenta()
