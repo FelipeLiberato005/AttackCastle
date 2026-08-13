@@ -320,7 +320,7 @@ pega_sprit = function()
         var p = global.personagens[i]
         if p.obj == object_index
         {
-            sprite_index = p.sprite
+            sprite_index = p.sprite_run
         }
     }
 }
@@ -381,7 +381,10 @@ pega_habilidade = function()
 
 
 
+
+
+
 pega_habilidade()
-pega_sprit()
+
 
 inicia_estado(procura_alvo)

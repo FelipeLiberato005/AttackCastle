@@ -6,7 +6,7 @@ nome_personagem = undefined
 objeto_player = undefined
 
 
-distancia_enemy = 30
+distancia_enemy = room_width
 alvo_enemy = undefined
 
 ataquei = false
@@ -57,6 +57,7 @@ lista_alvos = []
 alvo_atual = noone
 tempo_recarga = 0
 ataca = false
+sprite_estado = "estado_inicial"
 #endregion
 
 
@@ -75,7 +76,7 @@ ataca = false
 #region ESTADO IDLE
 estado_idle.inicia = function()
 {
-    
+    sprite_estado = "estado_inicial"
 }
 
 
@@ -101,7 +102,7 @@ estado_idle.roda = function()
 
 procura_alvo.inicia = function()
 {
-    
+    sprite_estado = "estado_alvo"
     global.arena = deleta_personagem(alvo_atual, global.arena);
     alvo_atual = noone;
     var lista_alvos = [];
@@ -143,7 +144,7 @@ procura_alvo.roda = function()
 #region DIREÇÃO AO ALVO
 estado_run.inicia = function()
 {
-    
+    sprite_estado = "estado_segue"
     
 }
 
@@ -172,7 +173,7 @@ estado_run.roda = function()
     
     
     
-      if (point_distance(x, y, _x, _y) < 25)
+      if (point_distance(x, y, _x, _y) < distancia_enemy)
     {
         troca_estado(estado_atack);
     }
@@ -189,6 +190,7 @@ estado_run.roda = function()
 
 estado_atack.inicia = function()
 {
+    sprite_estado = "estado_atack"
     vspeed = 0
     hspeed = 0
     
@@ -234,6 +236,7 @@ estado_atack.roda = function()
 
 estado_congelado.inicia = function()
 {
+    sprite_estado = "estado_congelado"
     var cor_rgb = make_colour_rgb(0, 200, 255)
     
     image_blend = cor_rgb
@@ -318,7 +321,15 @@ pega_sprit = function()
         var p = global.personagens[i]
         if p.obj == object_index
         {
-            sprite_index = p.sprite
+            if sprite_estado == "estado_segue" or sprite_estado == "estado_alvo" 
+            {
+                sprite_index = p.sprite_run    
+            }
+            else if sprite_estado == "estado_atack"
+            {
+                sprite_index = p.sprite_atack
+            }
+            
         }
     }
 }
@@ -357,6 +368,6 @@ pega_habilidade = function()
 
 
 pega_habilidade()
-pega_sprit()
+
 
 inicia_estado(procura_alvo)

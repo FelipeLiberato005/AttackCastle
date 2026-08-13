@@ -240,7 +240,7 @@ pega_sprit = function()
         var p = global.p_enemy[i]
         if p.obj == object_index
         {
-            sprite_index = p.sprite
+            sprite_index = p.sprite_run
         }
     }
 }
