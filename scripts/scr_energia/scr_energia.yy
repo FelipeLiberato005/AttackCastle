@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_energia",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_energia",
+  "parent":{
+    "name":"STATUS-BASICO",
+    "path":"folders/Script/STATUS-BASICO.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

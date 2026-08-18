@@ -1,4 +1,7 @@
 
+
+
+
 function define_sprite(_dir = 0, _sprite_side, _sprite_front, _sprite_back)
 {
     var _sprite;
@@ -15,11 +18,6 @@ function define_sprite(_dir = 0, _sprite_side, _sprite_front, _sprite_back)
 }
 
 
-
-function  define_direcao(_dir, _sprite)
-{
-    
-}
 
 
 
@@ -71,10 +69,6 @@ function interacao_lista_dano(lista, valor)
 }
 
 
-
-
-
-
 function interacao_lista(lista)
 {
     var _lista = array_length(lista)
@@ -87,3 +81,13 @@ function interacao_lista(lista)
 
 
 
+
+
+
+
+
+
+function executa_habilidade()
+{
+    
+}

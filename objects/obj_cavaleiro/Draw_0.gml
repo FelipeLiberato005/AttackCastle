@@ -1,4 +1,5 @@
 draw_self()
+mostra_energia()
 mostra_vida()
 
 draw_set_font(fnt_personagens)

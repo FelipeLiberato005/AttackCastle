@@ -9,7 +9,9 @@ function criar_personagem(
     _is_hero    = true,
     _vida_base  = 100,
     _dano       = 10,
-    morto       = false
+    morto       = false,
+    selecionado = false,
+    _energia = 0
 ) constructor {
     
     /* NOME PERSONAGEM*/
@@ -50,6 +52,11 @@ function criar_personagem(
     /* LISTA DE HABILIDADES DO PERSONAGEM*/
     tipo_ataque = []
     
+    /* SELECIONADO ? */
+    is_selection = selecionado
+    
+    /* ENERGIA */
+    energia = new scr_energia(100)
 }
 
 
@@ -77,16 +84,17 @@ var santa = new criar_personagem(
     /*HEROI?*/
     ,
     /*VIDA BASE*/
-    50,
+    850,
     /*DANO*/
-    15
+    18
     /*MORTO?*/
     )
 
 /*STRUCT DE HABILIDADES*/
 array_push(santa.tipo_ataque,
         //NOME         RECARGA     DANO
-        {nome:"ATK", recarga:0.8, dano: 15})
+        {nome:"ATK", recarga:0.8, dano: 15},
+        {nome:"CURA", recarga:60, energia: 80, cura:50})
 #endregion
 
 
@@ -112,7 +120,7 @@ var cavaleiro = new criar_personagem(
     /*HEROI?*/
     ,
     /*VIDA BASE*/
-    50,
+    1400,
     /*DANO*/
     15
     /*MORTO?*/
@@ -121,7 +129,8 @@ var cavaleiro = new criar_personagem(
 /*STRUCT DE HABILIDADES*/
 array_push(cavaleiro.tipo_ataque,
         //NOME         RECARGA     DANO
-        {nome:"ATK", recarga:0.8, dano: 15})
+        {nome:"ATK", recarga:0.8, dano: 15},
+        {nome:"ESCUDO", recarga:0.8, dano: 15})
 #endregion
 
 
@@ -146,7 +155,7 @@ var orc = new criar_personagem(
     /*HEROI?*/
     ,
     /*VIDA BASE*/
-    50,
+    1200,
     /*DANO*/
     15
     /*MORTO?*/
@@ -181,13 +190,14 @@ var arqueiro = new criar_personagem(
     /*HEROI?*/
     ,
     /*VIDA BASE*/
-    50,
+    940,
     /*DANO*/
     15
     /*MORTO?*/
     )
 array_push(arqueiro.tipo_ataque, 
-        {nome:"ATK", recarga:0.2, dano:11})
+        {nome:"ATK", recarga:0.2, dano:11},
+        {nome:"SPEED", recarga:0.2, dano:11})
 
 #endregion
 
@@ -213,7 +223,7 @@ var mago = new criar_personagem(
     /*HEROI?*/
     ,
     /*VIDA BASE*/
-    50,
+    700,
     /*DANO*/
     15
     /*MORTO?*/
@@ -407,6 +417,10 @@ array_push(enemy_5.tipo_ataque,
 global.personagens = [santa, cavaleiro, arqueiro, mago, orc]
 
 global.p_enemy = [enemy_1, enemy_2, enemy_3, enemy_4, enemy_5]
+
+
+global.heroi_batalha = [santa, cavaleiro, arqueiro]
+
 
                     //HEROI
 global.arena = [santa, cavaleiro, arqueiro, mago, orc,

@@ -1,5 +1,6 @@
 draw_self()
-mostra_vida()
-mostra_energia()
+desenha_selecao()
+
 draw_set_font(fnt_personagens)
+desenha_habilidade()
 draw_set_font(-1)

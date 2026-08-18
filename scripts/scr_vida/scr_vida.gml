@@ -37,7 +37,7 @@ function scr_vida(_vida_max) constructor{
 		vida_fundo = lerp(vida_fundo, vida_temp, 0.03)
 		
 		//desenhando a sub barra de vida
-		draw_rectangle_color(_x - 2, _y - 2, _x + _largura + 2, _y + _altura + 2, _cor3, _cor3, _cor3, _cor3,_out)
+		draw_rectangle_color(_x , _y , _x + _largura, _y + _altura, _cor3, _cor3, _cor3, _cor3,_out)
 		
 		//barra efeito
 		draw_rectangle_color(_x, _y, _x + _larg_vida2, _y + _altura, _cor2, _cor2, _cor2, _cor2, _out)

@@ -271,19 +271,37 @@ estado_congelado.roda = function()
 
 mostra_vida = function()
 {
-     var lista = array_length(global.arena)
-        
-        for (var i = 0; i < lista; i++)
+    var list = array_length(global.personagens)
+    
+    for( var i = 0; i < list; i ++)
+    {
+        var info = global.personagens[i]
+        if info.obj == object_index
+    {
+        draw_set_font(fnt_personagens)
+        info.vida_atual.desenha_vida(x - 7, y - 32, 15, 1.5,,,,false)
+        draw_set_font(-1)
+    }
+    }
+    
+}
+
+mostra_energia = function()
+{
+    
+    var list = array_length(global.personagens)
+    
+    for( var i = 0; i < list; i ++)
+    {
+        var info = global.personagens[i]
+        var _cor = make_colour_rgb(0, 100, 210)
+        if info.obj == object_index
         {
-            var p = global.arena[i]
-            
-            if p.obj == object_index
-            {
-                draw_set_font(fnt_personagens)
-                p.vida_atual.desenha_vida(x - 5, y - 30, 10, 1)
-                draw_set_font(-1)
-            }
+            draw_set_font(fnt_personagens)
+            info.energia.desenha_energia(x - 7, y - 30, 15, 1.5,_cor,,,false)
+            draw_set_font(-1)
         }
+    }
 }
 
 morre = function()
@@ -377,6 +395,27 @@ pega_habilidade = function()
     }
 }
 
+
+
+tira_vida = function()
+{
+    var list = array_length(global.personagens)
+    
+    for( var i = 0; i < list; i++)
+    {
+        var info = global.personagens[i]
+        
+        if info.obj == object_index
+        {
+            if keyboard_check_pressed(ord("B"))
+            {
+                info.vida_atual.perde_vida(5)
+            }
+        }
+    }
+}
+
+
 #endregion
 
 
@@ -385,3 +424,6 @@ pega_habilidade()
 pega_sprit()
 
 inicia_estado(procura_alvo)
+
+
+
