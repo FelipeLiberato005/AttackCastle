@@ -1,4 +1,5 @@
 #region VARIAVEIS
+
 batata = 0
 atual = 0
 
@@ -22,6 +23,7 @@ vel = 0.5
 //sprite_index = _sprite
 image_xscale = -1
 #endregion
+
 
 randomise()
 
@@ -47,25 +49,61 @@ estado_habilidade   = new estado()
 
 #region VARIAVEIS ATRIBUTOS PRINCIPAIS
 
-
+/* VARIAVEL QUE GUARDARA O DANO ATUAL DO PERSONAGEM
+PARA FACILITAR NA HORA QUE PRECISAR USAR O DANO ATUAL DO PERSONAGEM
+NÃO PRECISARA PERCORRER A LISTA DE PERSONAGENS*/
 dano_atual_p = 0
 
-
+/* CRONOMETRO PARA LIMITAR O TEMPO EM QUE O PERSONAGEM ATACARÁ 
+SE NÃO FIZER ISSO, SERÁ DANO INFINITO A CADA MILESIMO,
+DESTRUINDO A DINAMICA DO GAME*/
 cronometro_carga = 0
 
+/* CRONOMETRO PARA LIMITAR O TEMPO EM QUE O PERSONAGEM CURARÁ 
+SE NÃO FIZER ISSO, SERÁ CURA INFINITA A CADA MILESIMO,
+DESTRUINDO A DINAMICA DO GAME*/
 tempo_habilidade = 0
 
+
+/* CRONOMETRO PARA LIMITAR O TEMPO EM QUE A HABILIDADE DO PERSONAGEM
+ESTARÁ ATIVADA*/
 cronometro_tempo_cura = 0
 
+/* SÓ UMA VARIAVEL PARA CONTROLAR O MOMENTO EM QUE POSSO CHAMAR O tempo_habilidade*/
 usei = true
 
+/* GUARDA ATAQUES QUE SERÁ PEGO LA DO CONSTRUTOR
+PARA FACILITAR NA HORA QUE PRECISAR USAR, PARA
+NÃO PRECISAR FAZER MILHARES DE LAÇOS*/
 ataques = []
+
+//LISTA DE ALVOS, É USADO NO procura_alvo
 lista_alvos = []
+
+/* LISTA DE PERSONAGENS QUE SERÁ CURADOS
+USADO NO estado_habilidade*/
 lista_cura = []
+
+//VARIAVEL QUE GUARDARÁ  O ALVO ATUAL DO PERSONAGEM
 alvo_atual = noone
+
+/* CRONOMETRO PARA A RECARGA DE ATAQUE? NÃO LEMBRO*/
 tempo_recarga = 0
+
+//VARIAVEL PARA CONTROLAR O ATAQUE DO PERSONAGEM
 ataca = false
+
+/* VARIAVEL PARA O CONSTRUTOR SABER QUAL SPRITE DEVE USAR
+A IDEIA É FACILITAR NA HORA DE QUERER UMA SPRITE, INVÉS
+DE FAZER UM FOR DENTRO DO CONTRUTOR FOI CRIADO UM METODO
+"pega_sprit()" QUE ELE ESCOLHE A PARTIR DA STRING DESSA VARIAVEL
+A VARIAVEL MUDA APARTIR DA MAQUINDA DE ESTADOS, PERCEBE-SE QUE NO COMEÇO
+DE CADA ESTADO JA DEFINO O MEU sprite_estado
+*/
 sprite_estado = "estado_inicial"
+
+//INICIAR CRONOMETRO DA HABILIDADE DE CURA
+play_cron_habilidade = false
 #endregion
 
 
@@ -80,7 +118,7 @@ sprite_estado = "estado_inicial"
 
 
 
-
+/* ESTADO EM QUE O PERSONAGEM FICA PARADO (ESTADO INICIAL DO PERSONAGEM)*/
 #region ESTADO IDLE
 estado_idle.inicia = function()
 {
@@ -105,7 +143,7 @@ estado_idle.roda = function()
 
 
 
-
+/* ESTADO EM QUE O PERSONAGEM VERIFICA A LISTA DE INIMIGOS DA BATALHA E ESCOLHE UM PARA SEGUIR*/
 #region PROCURANDO O ALVO
 
 procura_alvo.inicia = function()
@@ -153,7 +191,7 @@ procura_alvo.roda = function()
 
 
 
-
+/* ESTADO EM QUE O PERSONAGEM VAI EM DIREÇÃO AO SEU ALVO ESCOLHIDO NO ESTADO ANTERIOR*/
 #region DIREÇÃO AO ALVO
 estado_run.inicia = function()
 {
@@ -197,7 +235,7 @@ estado_run.roda = function()
 #endregion
 
 
-
+/* ESTADO EM QUE O PERSONAGEM ESTÁ PERTO O SUFICIENTE DO ALVO PARA ATACA-LO*/
 #region ESTADO ATACK
 estado_atack.inicia = function()
 {
@@ -240,7 +278,10 @@ estado_atack.roda = function()
 #endregion
 
 
-
+/* ESTADO EM QUE O PERSONAGEM USA A HABILIDADE ESPECIAL DELE*/
+/* O PERSONAGEM PARA DE ATACAR O ALVO E APÓS O TERMINO DA HABILIDADE ELE PROCRA UM NOVO ALVO*/
+/* O ALVO PODE SER DIFERENTE DO ANTERIAR, POIS ELE CRIA UMA NOVA LISTA COM O INIMIGOS E PEGA UM ALEATORIO DE LA*/
+/* INFORMAÇÃ DA LISTA ESTA NO "procurando_alvo"*/
 #region ESTADO HABILIDADE
 
 estado_habilidade.inicia = function()
@@ -269,9 +310,12 @@ estado_habilidade.roda = function()
    if cronometro_tempo_cura >= (ataques[0][1].tempo * room_speed) 
     {
         troca_estado(procura_alvo)
+        play_cron_habilidade = false
+        cronometro_tempo_cura = 0
     } 
    if usei == false
-   {          
+   {
+       play_cron_habilidade = true           
        var list = array_length(lista_cura)
        for( var i = 0; i < list; i++)
        {
@@ -303,7 +347,8 @@ estado_habilidade.roda = function()
 
 
 
-
+/* FAZ NADA POR ENQUANTO 24/08/2026*/
+/* MAS JÁ É UMA IDEIA PARA CRIAR ESTADOS NEGATIVOS COMO SOFRER ATAQUES CONGELANTES POR EXEMPLO*/
 #region ESTADO CONGELADO
 
 estado_congelado.inicia = function()
@@ -485,7 +530,10 @@ recarrega_habilidade = function()
 
 cronometrando_habilidade = function()
 {
-    cronometro_tempo_cura++
+    if play_cron_habilidade == true
+    {
+     cronometro_tempo_cura++   
+    }
 }
 
 ganha_energia = function()

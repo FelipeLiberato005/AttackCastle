@@ -409,7 +409,7 @@ tira_vida = function()
         {
             if keyboard_check_pressed(ord("B"))
             {
-                info.vida_atual.perde_vida(5)
+                info.vida_atual.perde_vida(50)
             }
         }
     }
