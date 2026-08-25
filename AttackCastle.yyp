@@ -78,6 +78,7 @@
     {"id":{"name":"spr_escolhas","path":"sprites/spr_escolhas/spr_escolhas.yy",},},
     {"id":{"name":"spr_maga_idle","path":"sprites/spr_maga_idle/spr_maga_idle.yy",},},
     {"id":{"name":"spr_santa_atack","path":"sprites/spr_santa_atack/spr_santa_atack.yy",},},
+    {"id":{"name":"spr_santa_healer","path":"sprites/spr_santa_healer/spr_santa_healer.yy",},},
     {"id":{"name":"spr_santa_run","path":"sprites/spr_santa_run/spr_santa_run.yy",},},
     {"id":{"name":"spr_selecionado","path":"sprites/spr_selecionado/spr_selecionado.yy",},},
     {"id":{"name":"sprite_personagem_teste","path":"sprites/sprite_personagem_teste/sprite_personagem_teste.yy",},},

@@ -55,6 +55,8 @@ cronometro_carga = 0
 
 tempo_habilidade = 0
 
+cronometro_tempo_cura = 0
+
 usei = true
 
 ataques = []
@@ -243,6 +245,7 @@ estado_atack.roda = function()
 
 estado_habilidade.inicia = function()
 {
+    sprite_estado = "estado_healer"
     //show_message("habilidade!")
     lista_cura = []
     //instance_create_layer(96, 64, layer, obj_area_cura)
@@ -263,9 +266,12 @@ estado_habilidade.inicia = function()
 estado_habilidade.roda = function()
 {
     
+   if cronometro_tempo_cura >= (ataques[0][1].tempo * room_speed) 
+    {
+        troca_estado(procura_alvo)
+    } 
    if usei == false
    {          
-       
        var list = array_length(lista_cura)
        for( var i = 0; i < list; i++)
        {
@@ -349,7 +355,7 @@ mostra_vida = function()
         if info.obj == object_index
     {
         draw_set_font(fnt_personagens)
-        info.vida_atual.desenha_vida(x - 7, y - 32, 15, 1.5,,,,false)
+        info.vida_atual.desenha_vida(x - 7, y - 32, 15, 1.5,c_green,,,false)
         draw_set_font(-1)
     }
     }
@@ -368,9 +374,25 @@ mostra_energia = function()
         if info.obj == object_index
         {
             draw_set_font(fnt_personagens)
-            info.energia.desenha_energia(x - 7, y - 30, 15, 1.5,_cor,,,false)
+            info.energia_atual.desenha_energia(x - 7, y - 30, 15, 1.5,_cor,,,false)
             draw_set_font(-1)
         }
+    }
+}
+
+mostra_escudo = function()
+{
+    var list = array_length(global.arena)
+    for( var i = 0; i < list; i++)
+    {
+        var info = global.arena[i]
+        if info.obj == object_index
+        {
+            draw_set_font(fnt_personagens)
+            info.escudo_atual.desenha_escudo(x - 7, y - 34, 15, 1.5,c_gray,,,false)
+            draw_set_font(-1)
+        }
+        
     }
 }
 
@@ -419,6 +441,11 @@ pega_sprit = function()
             {
                 sprite_index = p.sprite_atack
             }
+            else if sprite_estado == "estado_healer"
+            {
+                sprite_index = p.sprite_hab
+            }
+            
             
         }
     }
@@ -453,6 +480,43 @@ recarrega_habilidade = function()
         usei = false
     }
 }
+
+
+
+cronometrando_habilidade = function()
+{
+    cronometro_tempo_cura++
+}
+
+ganha_energia = function()
+{
+    var list = array_length(global.arena)
+    for( var i = 0; i < list; i++)
+    {
+        var info = global.arena[i]
+        
+        if info.obj == object_index
+        {
+            info.energia_atual.ganha_energia(0.10)
+        }
+    }
+}
+
+
+zera_energia = function()
+{
+    var list = array_length(global.arena)
+    for( var i = 0; i < list; i++)
+    {
+        var info = global.arena[i]
+        
+        if info.obj == object_index
+        {
+            info.energia_atual.perde_energia(100)
+        }
+    }
+}
+
 #endregion
 
 
@@ -496,8 +560,6 @@ pega_dano_atual = function()
 }
 
 
-
-
 aumenta_dano = function()
 {
     var list = array_length(global.personagens)
@@ -517,7 +579,7 @@ aumenta_dano = function()
 #endregion
 
 
-
+zera_energia()
 
 pega_habilidade()
 

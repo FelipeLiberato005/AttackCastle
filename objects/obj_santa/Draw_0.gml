@@ -1,5 +1,6 @@
 draw_self()
 mostra_vida()
 mostra_energia()
+mostra_escudo()
 draw_set_font(fnt_personagens)
 draw_set_font(-1)

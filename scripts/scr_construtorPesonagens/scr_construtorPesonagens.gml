@@ -11,7 +11,8 @@ function criar_personagem(
     _dano       = 10,
     morto       = false,
     selecionado = false,
-    _energia = 0
+    _energia = 100,
+    _escudo = 100
 ) constructor {
     
     /* NOME PERSONAGEM*/
@@ -56,7 +57,12 @@ function criar_personagem(
     is_selection = selecionado
     
     /* ENERGIA */
-    energia = new scr_energia(100)
+    energia_base = _energia
+    energia_atual = new scr_energia(energia_base)
+    
+    /* ESCUDO */
+    escudo_base = _escudo
+    escudo_atual = new scr_escudo(escudo_base)
 }
 
 
@@ -80,7 +86,7 @@ var santa = new criar_personagem(
     /*SPRITE_ATACK*/
     spr_santa_atack,
     /*SPRITE_HAB*/
-    ,
+    spr_santa_healer,
     /*HEROI?*/
     ,
     /*VIDA BASE*/
@@ -94,7 +100,7 @@ var santa = new criar_personagem(
 array_push(santa.tipo_ataque,
         //NOME         RECARGA     DANO
         {nome:"ATK", recarga:0.8, dano: 15},
-        {nome:"CURA", recarga:60, energia: 80, cura:50})
+        {nome:"CURA", recarga:60, energia: 80, cura:50, tempo:10})
 #endregion
 
 

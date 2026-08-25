@@ -22,7 +22,13 @@ seleciona_habilidade()
 pega_dano_atual()
 
 
+/* GANHANDO ENERGIA */
+ganha_energia()
+
+
+cronometrando_habilidade()
+
 aumenta_dano()
 
-
-show_debug_message(tempo_habilidade)
+show_debug_message(cronometro_tempo_cura)
+//show_debug_message(tempo_habilidade)

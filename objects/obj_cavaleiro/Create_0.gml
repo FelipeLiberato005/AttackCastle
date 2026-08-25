@@ -298,7 +298,7 @@ mostra_energia = function()
         if info.obj == object_index
         {
             draw_set_font(fnt_personagens)
-            info.energia.desenha_energia(x - 7, y - 30, 15, 1.5,_cor,,,false)
+            info.energia_atual.desenha_energia(x - 7, y - 30, 15, 1.5,_cor,,,false)
             draw_set_font(-1)
         }
     }
