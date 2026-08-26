@@ -100,7 +100,7 @@ var santa = new criar_personagem(
 array_push(santa.tipo_ataque,
         //NOME         RECARGA     DANO
         {nome:"ATK", recarga:0.8, dano: 15},
-        {nome:"CURA", recarga:60, energia: 80, cura:50, tempo:10})
+        {nome:"CURA", recarga:60, energia: 80, cura:300, tempo:10})
 #endregion
 
 
@@ -275,7 +275,7 @@ var enemy_1 = new criar_personagem(
     /*HEROI?*/
     false,
     /*VIDA BASE*/
-    50,
+    1000,
     /*DANO*/
     15
     /*MORTO?*/
@@ -305,7 +305,7 @@ var enemy_2 = new criar_personagem(
     /*HEROI?*/
     false,
     /*VIDA BASE*/
-    50,
+    1000,
     /*DANO*/
     15
     /*MORTO?*/
@@ -336,7 +336,7 @@ var enemy_3 = new criar_personagem(
     /*HEROI?*/
     false,
     /*VIDA BASE*/
-    50,
+    500,
     /*DANO*/
     15
     /*MORTO?*/
@@ -429,9 +429,9 @@ global.heroi_batalha = [santa, cavaleiro, arqueiro]
 
 
                     //HEROI
-global.arena = [santa, cavaleiro, arqueiro, mago, orc,
+global.arena = [santa, cavaleiro, /*, arqueiro, mago, orc,*/
                     //ENEMYS
-                enemy_1, enemy_2, enemy_3, enemy_4, enemy_5]
+                enemy_1, enemy_2, enemy_3/*, enemy_4, enemy_5*/]
 
 
 

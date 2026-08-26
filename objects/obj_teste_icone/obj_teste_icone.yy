@@ -1,16 +1,13 @@
 {
   "$GMObject":"",
-  "%Name":"obj_area_cura",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"obj_teste_icone",
+  "eventList":[],
   "managed":true,
-  "name":"obj_area_cura",
+  "name":"obj_teste_icone",
   "overriddenProperties":[],
   "parent":{
-    "name":"SANTA-OBJ",
-    "path":"folders/Object/PERSONAGENS-OBJETOS/SANTA-OBJ.yy",
+    "name":"Object",
+    "path":"folders/Object.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -31,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_area_cura",
-    "path":"sprites/spr_area_cura/spr_area_cura.yy",
+    "name":"spr_teste_escolha",
+    "path":"sprites/spr_teste_escolha/spr_teste_escolha.yy",
   },
   "spriteMaskId":null,
   "visible":true,

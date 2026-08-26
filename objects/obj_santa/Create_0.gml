@@ -15,7 +15,7 @@ ataquei = false
 cron = 0
 tempo = 0
 vel = 0.5
-
+alvo_atual = noone;
 //vida = 0
 
 
@@ -149,8 +149,13 @@ estado_idle.roda = function()
 procura_alvo.inicia = function()
 {
     sprite_estado = "estado_alvo"
-    global.arena = deleta_personagem(alvo_atual, global.arena);
-    alvo_atual = noone;
+    if alvo_atual != -4{
+        if alvo_atual.is_morto == true
+        {
+            global.arena = deleta_personagem(alvo_atual, global.arena);        
+        }
+    }
+    //show_message("<<PROCURANDO ALVO>>: " + string(global.arena))
     var lista_alvos = [];
     
     
@@ -158,7 +163,7 @@ procura_alvo.inicia = function()
     {
         
         var alvo = global.arena[i];
-
+        
         if (!alvo.is_hero && instance_exists(alvo.obj))
         {
             array_push(lista_alvos, alvo);
@@ -254,24 +259,44 @@ estado_atack.roda = function()
     for( var i = 0; i < list; i++)
     {
       var p = global.arena[i]
+      var dano_critico = irandom(30)
+      //show_message(dano_critico)    
       if p.obj == object_index && instance_exists(p.obj) 
     {
         if tempo_recarga >= (ataques[0][0].recarga * room_speed)
         {
-            alvo_atual.vida_atual.perde_vida(p.dano_atual)
-            var k = instance_create_layer(alvo_atual.obj.x, alvo_atual.obj.y - 20, layer, obj_contagem)  
-            k.txtCura = p.dano_atual
-            tempo_recarga = 0
-          
+            if dano_critico > 0 && dano_critico <= 24
+            {
+                alvo_atual.vida_atual.perde_vida(p.dano_atual)
+                var k = instance_create_layer(alvo_atual.obj.x, alvo_atual.obj.y - 20, layer, obj_contagem)  
+                k.txtCura = p.dano_atual
+                tempo_recarga = 0    
+            } 
+            else if dano_critico > 24
+            {
+                var critico = (p.dano_atual * 3)
+                alvo_atual.vida_atual.perde_vida(critico)
+                var k = instance_create_layer(alvo_atual.obj.x, alvo_atual.obj.y - 20, layer, obj_contagem)  
+                k.txtCura = critico
+                k.cor = c_aqua
+                tempo_recarga = 0  
+            }
+            
         } 
     }    
     }
     
     
-    
-    
     if alvo_atual.is_morto == true{
         troca_estado(procura_alvo)
+        //global.arena = deleta_personagem(alvo_atual, global.arena)
+    }
+    
+    
+    
+    if keyboard_check_pressed(vk_enter)
+    {
+        troca_estado(estado_habilidade)
     }
 }
 
@@ -286,8 +311,8 @@ estado_atack.roda = function()
 
 estado_habilidade.inicia = function()
 {
+    //show_message("<<ENTARNDO NA HABILIDADE>>: " + string(global.arena))
     sprite_estado = "estado_healer"
-    //show_message("habilidade!")
     lista_cura = []
     //instance_create_layer(96, 64, layer, obj_area_cura)
     var list = array_length(global.arena)
@@ -309,9 +334,10 @@ estado_habilidade.roda = function()
     
    if cronometro_tempo_cura >= (ataques[0][1].tempo * room_speed) 
     {
-        troca_estado(procura_alvo)
         play_cron_habilidade = false
         cronometro_tempo_cura = 0
+        //show_message("<<SAINDO NA HABILIDADE>>: " + string(global.arena))
+        troca_estado(procura_alvo)
     } 
    if usei == false
    {
@@ -480,15 +506,17 @@ pega_sprit = function()
         {
             if sprite_estado == "estado_segue" or sprite_estado == "estado_alvo" 
             {
-                sprite_index = p.sprite_run    
+                sprite_index = p.sprite_run  
+                image_alpha = 0.7  
             }
             else if sprite_estado == "estado_atack"
             {
-                sprite_index = p.sprite_atack
+                  sprite_index = p.sprite_atack
             }
             else if sprite_estado == "estado_healer"
             {
                 sprite_index = p.sprite_hab
+                image_alpha = 1
             }
             
             
@@ -584,11 +612,19 @@ zera_energia = function()
 
 pega_habilidade = function()
 {
-    var list = interacao_lista(global.personagens)
     
-    if list.obj == object_index
+    
+    var _list = array_length(global.personagens)
+    
+    for( var i = 0; i < _list; i++)
     {
-        array_push(ataques, list.tipo_ataque)
+        var personagem = global.personagens[i]
+        
+        if personagem.obj == object_index
+        {
+            array_push(ataques, personagem.tipo_ataque)
+        }
+        
     }
 }
 
@@ -599,7 +635,7 @@ pega_dano_atual = function()
     var list = array_length(global.personagens)
     for( var i = 0; i < list; i++)
     {
-        var info = global.arena[i]
+        var info = global.personagens[i]
         if info.obj == object_index
         {
             dano_atual_p = info.dano_atual
@@ -613,7 +649,7 @@ aumenta_dano = function()
     var list = array_length(global.personagens)
     for( var i = 0; i < list; i++)
     {
-        var info = global.arena[i]
+        var info = global.personagens[i]
         if info.obj == object_index
         {
             if keyboard_check_pressed(ord("X"))

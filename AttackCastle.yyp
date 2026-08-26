@@ -47,7 +47,6 @@
   "resources":[
     {"id":{"name":"fnt_dano","path":"fonts/fnt_dano/fnt_dano.yy",},},
     {"id":{"name":"fnt_personagens","path":"fonts/fnt_personagens/fnt_personagens.yy",},},
-    {"id":{"name":"obj_area_cura","path":"objects/obj_area_cura/obj_area_cura.yy",},},
     {"id":{"name":"obj_arqueiro","path":"objects/obj_arqueiro/obj_arqueiro.yy",},},
     {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},},
     {"id":{"name":"obj_cavaleiro","path":"objects/obj_cavaleiro/obj_cavaleiro.yy",},},
@@ -63,6 +62,7 @@
     {"id":{"name":"obj_orc","path":"objects/obj_orc/obj_orc.yy",},},
     {"id":{"name":"obj_quadro","path":"objects/obj_quadro/obj_quadro.yy",},},
     {"id":{"name":"obj_santa","path":"objects/obj_santa/obj_santa.yy",},},
+    {"id":{"name":"obj_teste_icone","path":"objects/obj_teste_icone/obj_teste_icone.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"scr_ataques","path":"scripts/scr_ataques/scr_ataques.yy",},},
     {"id":{"name":"scr_construtorPesonagens","path":"scripts/scr_construtorPesonagens/scr_construtorPesonagens.yy",},},
@@ -81,6 +81,7 @@
     {"id":{"name":"spr_santa_healer","path":"sprites/spr_santa_healer/spr_santa_healer.yy",},},
     {"id":{"name":"spr_santa_run","path":"sprites/spr_santa_run/spr_santa_run.yy",},},
     {"id":{"name":"spr_selecionado","path":"sprites/spr_selecionado/spr_selecionado.yy",},},
+    {"id":{"name":"spr_teste_escolha","path":"sprites/spr_teste_escolha/spr_teste_escolha.yy",},},
     {"id":{"name":"sprite_personagem_teste","path":"sprites/sprite_personagem_teste/sprite_personagem_teste.yy",},},
   ],
   "resourceType":"GMProject",

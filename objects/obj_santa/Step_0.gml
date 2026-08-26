@@ -30,5 +30,5 @@ cronometrando_habilidade()
 
 aumenta_dano()
 
-show_debug_message(cronometro_tempo_cura)
+show_debug_message(sprite_estado)
 //show_debug_message(tempo_habilidade)

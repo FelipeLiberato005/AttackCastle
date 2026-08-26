@@ -1,1 +1,0 @@
-curando_aliado()

@@ -251,4 +251,4 @@ pega_sprit = function()
 pega_ataques()
 pega_sprit()
 
-inicia_estado(procura_alvo)
+//inicia_estado(procura_alvo)

@@ -12,19 +12,19 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"0b673530-a501-4f86-b736-d980c5ba5fa6","name":"0b673530-a501-4f86-b736-d980c5ba5fa6","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"v1","%Name":"4f058aa8-1842-4edf-b211-14a1ff84d21c","name":"4f058aa8-1842-4edf-b211-14a1ff84d21c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"v1","%Name":"250bfca3-136b-4e28-8687-e1f08d5939cf","name":"250bfca3-136b-4e28-8687-e1f08d5939cf","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"v1","%Name":"b7450e97-fa34-4b6e-b216-7e7269fd4fdc","name":"b7450e97-fa34-4b6e-b216-7e7269fd4fdc","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"v1","%Name":"a0d15b03-788f-4151-8e37-72387ff44f6a","name":"a0d15b03-788f-4151-8e37-72387ff44f6a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"v1","%Name":"d706b119-caeb-45bb-8751-6e5bf923f298","name":"d706b119-caeb-45bb-8751-6e5bf923f298","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"be480c3a-8989-4e0d-a872-7ba296ecde74","name":"be480c3a-8989-4e0d-a872-7ba296ecde74","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"a96a0bb2-8dd5-4e54-ad40-9a0610df60a1","name":"a96a0bb2-8dd5-4e54-ad40-9a0610df60a1","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"ef58c733-8b33-4871-b7a7-50138ad3bac6","name":"ef58c733-8b33-4871-b7a7-50138ad3bac6","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"f2237f78-7317-456d-b118-5c9d584a1186","name":"f2237f78-7317-456d-b118-5c9d584a1186","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"0837e3fe-c9ae-4a0e-8081-07df48381681","name":"0837e3fe-c9ae-4a0e-8081-07df48381681","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"a106309f-14cf-4452-8fc2-28494f696a4e","name":"a106309f-14cf-4452-8fc2-28494f696a4e","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
   "height":27,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"8a36111f-be5f-41c6-9288-27002cce1eb7","blendMode":0,"displayName":"default","isLocked":false,"name":"8a36111f-be5f-41c6-9288-27002cce1eb7","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"984a80ca-4528-4cc6-8e9c-caf5501fd198","blendMode":0,"displayName":"default","isLocked":false,"name":"984a80ca-4528-4cc6-8e9c-caf5501fd198","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_santa_healer",
   "nineSlice":null,
@@ -74,23 +74,23 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"0b673530-a501-4f86-b736-d980c5ba5fa6","path":"sprites/spr_santa_healer/spr_santa_healer.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"c0698b33-1c6f-42a3-9663-ad1f27d84770","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"be480c3a-8989-4e0d-a872-7ba296ecde74","path":"sprites/spr_santa_healer/spr_santa_healer.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"b5daef3d-8d12-4ff6-aa5c-25304051fe21","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"4f058aa8-1842-4edf-b211-14a1ff84d21c","path":"sprites/spr_santa_healer/spr_santa_healer.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"7a4ce691-c829-4ec0-9d46-29fa445b58dd","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"a96a0bb2-8dd5-4e54-ad40-9a0610df60a1","path":"sprites/spr_santa_healer/spr_santa_healer.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"ff54255c-cf01-4e85-8e35-227862716429","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"250bfca3-136b-4e28-8687-e1f08d5939cf","path":"sprites/spr_santa_healer/spr_santa_healer.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"d01dcf7b-2a68-4977-962f-fbbf4d312e6d","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"ef58c733-8b33-4871-b7a7-50138ad3bac6","path":"sprites/spr_santa_healer/spr_santa_healer.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"fd780cd3-19de-4191-9915-b15f64d86955","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"b7450e97-fa34-4b6e-b216-7e7269fd4fdc","path":"sprites/spr_santa_healer/spr_santa_healer.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"c491bea5-9c42-4a8d-89a9-d08d11021f99","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"f2237f78-7317-456d-b118-5c9d584a1186","path":"sprites/spr_santa_healer/spr_santa_healer.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"dc2574b5-d4bf-45ec-83f6-af82b6729f70","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"a0d15b03-788f-4151-8e37-72387ff44f6a","path":"sprites/spr_santa_healer/spr_santa_healer.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"80ede552-70a7-4ca2-adf6-a54c96ec72a2","IsCreationKey":false,"Key":4.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"0837e3fe-c9ae-4a0e-8081-07df48381681","path":"sprites/spr_santa_healer/spr_santa_healer.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"a5acac18-7659-4906-8d3e-714ddb42a06d","IsCreationKey":false,"Key":4.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"d706b119-caeb-45bb-8751-6e5bf923f298","path":"sprites/spr_santa_healer/spr_santa_healer.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"28cb8ef1-9869-4144-8807-5a354d4b86d5","IsCreationKey":false,"Key":5.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"a106309f-14cf-4452-8fc2-28494f696a4e","path":"sprites/spr_santa_healer/spr_santa_healer.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"9ca94afa-f77d-460d-ba21-d542b63f7480","IsCreationKey":false,"Key":5.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
