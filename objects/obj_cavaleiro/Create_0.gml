@@ -101,8 +101,12 @@ estado_idle.roda = function()
 
 procura_alvo.inicia = function()
 {
-    
-    global.arena = deleta_personagem(alvo_atual, global.arena);
+    if alvo_atual != -4{
+        if alvo_atual.is_morto == true
+        {
+            global.arena = deleta_personagem(alvo_atual, global.arena);        
+        }
+    }
     alvo_atual = noone;
     var lista_alvos = [];
     
@@ -155,28 +159,10 @@ estado_run.roda = function()
         troca_estado(procura_alvo);
         return;
     }
+    
+    
+    distancia_alvo(alvo_atual, estado_atack, 25, 2)
 
-    var _x = alvo_atual.obj.x;
-    var _y = alvo_atual.obj.y;
-    
-    
-    var _dist = point_distance(x, y, _x, _y);
-
-    
-   
-    direction = point_direction(x, y, _x, _y);
-
-    x += lengthdir_x(2, direction);
-    y += lengthdir_y(2, direction);
-    
-    
-    
-      if (point_distance(x, y, _x, _y) < 25)
-    {
-        troca_estado(estado_atack);
-    }
-    
-   
 }
 
 #endregion
@@ -195,6 +181,14 @@ estado_atack.inicia = function()
 
 estado_atack.roda = function()
 {
+    if instance_exists(alvo_atual.obj)
+    {
+        if point_distance(x, y, alvo_atual.obj.x, alvo_atual.obj.y) > 50
+    {
+        troca_estado(estado_run)
+    }    
+    }
+    
     var list = array_length(global.arena)
     
     for (var i = 0; i < list; i++)
@@ -213,6 +207,9 @@ estado_atack.roda = function()
     }
     
     }
+    
+    
+  
     if alvo_atual.is_morto == true{
         troca_estado(procura_alvo)
     }

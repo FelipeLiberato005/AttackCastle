@@ -241,6 +241,7 @@ pega_sprit = function()
         if p.obj == object_index
         {
             sprite_index = p.sprite_run
+            nome = p.nome
         }
     }
 }

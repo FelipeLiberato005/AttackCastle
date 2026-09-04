@@ -8,6 +8,8 @@ alvo_atual = noone
 
 tempo_recarga = 0
 ataques = []
+
+nome = undefined
 #endregion
 
 
@@ -241,6 +243,7 @@ pega_sprit = function()
         if p.obj == object_index
         {
             sprite_index = p.sprite_run
+            nome = p.nome
         }
     }
 }

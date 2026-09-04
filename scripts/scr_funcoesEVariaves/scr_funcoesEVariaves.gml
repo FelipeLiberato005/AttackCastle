@@ -1,7 +1,7 @@
 
 
 
-
+/*     PEGA SPRITE    */
 function define_sprite(_dir = 0, _sprite_side, _sprite_front, _sprite_back)
 {
     var _sprite;
@@ -20,6 +20,12 @@ function define_sprite(_dir = 0, _sprite_side, _sprite_front, _sprite_back)
 
 
 
+
+
+
+
+
+/*   DELETA PERSONAGEM DA LISTA ESCOLHIDA   */
 
 function deleta_personagem(alvo, lista)
 {
@@ -41,53 +47,59 @@ function deleta_personagem(alvo, lista)
     
     
     
-function organiza_lista(_lista)
+
+
+
+ /*  FUNÇÃO PARA PEGAR DISTANCIA DE OBJETOS */
+
+///@description PEGA A DISTANCIA DO OBJETO E COMPARA COM A DO ALVO
+///@parameter {num} menor_ou_maior 1 = sinal de maior != 1 menor
+///@parameter {object} alvo_atual Alvo atual
+///@parameter {function} estado_personagem Estado em que será direcionado após a condição ser atingida
+///@param {num} valor_distancia Valor da distancia entre o objeto e o alvo atual
+function distancia_alvo(alvo_atual, estado_personagem, valor_distancia, menor_ou_maior )
 {
-    lista_batalha = array_length(_lista)
-    for(var i = 0; i < lista_batalha; i++)
+    
+    var _x = alvo_atual.obj.x;
+    var _y = alvo_atual.obj.y;
+    var sinal = menor_ou_maior
+    
+    var _dist = point_distance(x, y, _x, _y);
+
+    
+   
+    direction = point_direction(x, y, _x, _y);
+
+    x += lengthdir_x(2, direction);
+    y += lengthdir_y(2, direction);
+    
+    if (x > _x)
+    {
+        image_xscale = 1;
+    }
+    else
+    {
+        image_xscale = -1;
+    }
+    
+    
+    if sinal == 1
     { 
-       // show_debug_message(_lista[i])
-        //show_debug_message(_lista[i].nome + " " + string(_lista[i].ordem))
-        //if(_lista[i].ordem == 0)
-        //{
-            //show_message(_lista[i].nome)
-        //}
+        if (point_distance(x, y, _x, _y) > valor_distancia) 
+        {
+            troca_estado(estado_personagem);
+        }       
     }
-}
-
-
-function interacao_lista_dano(lista, valor)
-{
-    var _lista = array_length(lista)
-    
-    for( var i = 0; i < _lista; i++)
+    else
     {
-        var info = lista[i]
-        
-        info.dano_atual += valor
+        if (point_distance(x, y, _x, _y) < valor_distancia) 
+        {
+            troca_estado(estado_personagem);
+        }
     }
-}
-
-
-function interacao_lista(lista)
-{
-    var _lista = array_length(lista)
-    
-    for( var i = 0; i < _lista; i++)
-    {
-        return lista[i]
-    }
-}
-
-
-
-
-
-
-
-
-
-function executa_habilidade()
-{
     
 }
+
+
+
+

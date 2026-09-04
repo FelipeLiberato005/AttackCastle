@@ -22,6 +22,11 @@ seleciona_habilidade()
 pega_dano_atual()
 
 
+/* PEGA ENERGIA ATUAL APARTIR DO CONSTRUTOR */
+pega_energia_atual()
+
+
+
 /* GANHANDO ENERGIA */
 ganha_energia()
 

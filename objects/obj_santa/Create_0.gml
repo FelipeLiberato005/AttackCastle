@@ -54,6 +54,13 @@ PARA FACILITAR NA HORA QUE PRECISAR USAR O DANO ATUAL DO PERSONAGEM
 NÃO PRECISARA PERCORRER A LISTA DE PERSONAGENS*/
 dano_atual_p = 0
 
+
+/* VARIAVEL QUE GUARDARA O ENERGIA ATUAL DO PERSONAGEM
+PARA FACILITAR NA HORA QUE PRECISAR USAR O DANO ATUAL DO PERSONAGEM
+NÃO PRECISARA PERCORRER A LISTA DE PERSONAGENS*/
+energia_atual_p = 0
+
+
 /* CRONOMETRO PARA LIMITAR O TEMPO EM QUE O PERSONAGEM ATACARÁ 
 SE NÃO FIZER ISSO, SERÁ DANO INFINITO A CADA MILESIMO,
 DESTRUINDO A DINAMICA DO GAME*/
@@ -141,8 +148,6 @@ estado_idle.roda = function()
 
 
 
-
-
 /* ESTADO EM QUE O PERSONAGEM VERIFICA A LISTA DE INIMIGOS DA BATALHA E ESCOLHE UM PARA SEGUIR*/
 #region PROCURANDO O ALVO
 
@@ -185,14 +190,12 @@ procura_alvo.inicia = function()
 
 procura_alvo.roda = function()
 {
-    if keyboard_check_pressed(vk_enter)
+    if keyboard_check_pressed(vk_enter) 
     {
         troca_estado(estado_habilidade)
     }
 }
 #endregion
-
-
 
 
 
@@ -213,27 +216,8 @@ estado_run.roda = function()
         troca_estado(procura_alvo);
         return;
     }
-
-    var _x = alvo_atual.obj.x;
-    var _y = alvo_atual.obj.y;
     
-    
-    var _dist = point_distance(x, y, _x, _y);
-
-    
-   
-    direction = point_direction(x, y, _x, _y);
-
-    x += lengthdir_x(2, direction);
-    y += lengthdir_y(2, direction);
-    
-    
-    
-      if (point_distance(x, y, _x, _y) < distancia_enemy)
-    {
-        troca_estado(estado_atack);
-    }
-    
+    distancia_alvo(alvo_atual, estado_atack, distancia_enemy, 2)
    
 }
 
@@ -271,6 +255,16 @@ estado_atack.roda = function()
                 var k = instance_create_layer(alvo_atual.obj.x, alvo_atual.obj.y - 20, layer, obj_contagem)  
                 k.txtCura = p.dano_atual
                 tempo_recarga = 0    
+                
+                /* AUMENTANDO O DANO UTILIZANDO A PASSIVA*/
+                var x_aleatorio_dano = irandom_range(-5, 10)
+                var y_aleatorio_dano = irandom_range(5, 20)
+                passiva = (2/100) * p.dano_atual
+                p.dano_atual += passiva
+                var aumento_dano = instance_create_layer(x + x_aleatorio_dano , y - y_aleatorio_dano, layer, obj_contagem)
+                aumento_dano.txtCura = passiva
+                aumento_dano.cor = c_fuchsia 
+                
             } 
             else if dano_critico > 24
             {
@@ -280,6 +274,26 @@ estado_atack.roda = function()
                 k.txtCura = critico
                 k.cor = c_aqua
                 tempo_recarga = 0  
+                
+                
+                /* AUMENTANDO O DANO UTILIZANDO A PASSIVA*/
+                passiva = (2/100) * p.dano_atual
+                p.dano_atual += passiva
+                var aumento_dano = instance_create_layer(x, y - 20, layer, obj_contagem)
+                aumento_dano.txtCura = passiva
+                aumento_dano.cor = c_fuchsia 
+                
+                
+                
+                 /* GANHANDO ENERGIA COM ATAQUES CRITICOS*/
+                var cor = make_colour_rgb(0, 100, 150)
+                var x_aleatorio_energia = irandom_range(-5, 10)
+                var y_aleatorio_energia = irandom_range(5, 20)
+                passiva_2 = 10
+                p.energia_atual.ganha_energia(passiva_2)
+                var energia = instance_create_layer(x + x_aleatorio_energia, y - y_aleatorio_energia, layer, obj_contagem)
+                energia.txtCura = passiva_2
+                energia.cor = cor 
             }
             
         } 
@@ -294,7 +308,7 @@ estado_atack.roda = function()
     
     
     
-    if keyboard_check_pressed(vk_enter)
+    if keyboard_check_pressed(vk_enter) && energia_atual_p == 100
     {
         troca_estado(estado_habilidade)
     }
@@ -358,6 +372,8 @@ estado_habilidade.roda = function()
                var k = instance_create_layer(_x, _y - 20, layer, obj_contagem)    
                k.txtCura = cura 
                k.cor = c_green
+            
+               //instance_create_layer(_x, _y, layer, obj_efeito_santa)
            }
             
         }
@@ -639,10 +655,26 @@ pega_dano_atual = function()
         if info.obj == object_index
         {
             dano_atual_p = info.dano_atual
+            //show_debug_message(" DANO CREATE OBJETO: " + string(dano_atual_p) + "||" + " DANO CONSTRUTOR: " + string(info.dano_atual))
         }
     }
 }
 
+
+
+pega_energia_atual = function()
+{
+    var list = array_length(global.personagens)
+    for( var i = 0; i < list; i++)
+    {
+        var info = global.personagens[i]
+        if info.obj == object_index
+        {
+            energia_atual_p = info.energia_atual
+            show_debug_message(" DANO CREATE OBJETO: " + string(energia_atual_p.energia) + "||" + " DANO CONSTRUTOR: " + string(info.energia_atual.energia))
+        }
+    }
+}
 
 aumenta_dano = function()
 {
@@ -661,6 +693,8 @@ aumenta_dano = function()
 }
 
 #endregion
+
+
 
 
 zera_energia()
