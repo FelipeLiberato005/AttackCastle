@@ -12,7 +12,9 @@ function criar_personagem(
     morto       = false,
     selecionado = false,
     _energia = 100,
-    _escudo = 100
+    _escudo = 100,
+    _painel_inicial = noone,
+    _painel_habilidade = noone
 ) constructor {
     
     /* NOME PERSONAGEM*/
@@ -63,6 +65,10 @@ function criar_personagem(
     /* ESCUDO */
     escudo_base = _escudo
     escudo_atual = new scr_escudo(escudo_base)
+    
+    /* PAINEL INFORMAÇÕES DO PERSONAGEM*/
+    painel_inicial = _painel_inicial
+    painel_habilidade = _painel_habilidade
 }
 
 
@@ -94,6 +100,18 @@ var santa = new criar_personagem(
     /*DANO*/
     18
     /*MORTO?*/
+    ,
+    /*SELECIONADO?*/
+    ,
+    /*ENERGIA*/
+    ,
+    /*ESCUDO*/
+    ,
+    ,
+    /*PAINEL PRINCIPAL*/
+    spr_painel_santa_inicio,
+    /*PAINEL DE HABILIDADE*/
+    spr_painel_santa_hab
     )
 
 /*STRUCT DE HABILIDADES*/
@@ -336,7 +354,7 @@ var enemy_3 = new criar_personagem(
     /*HEROI?*/
     false,
     /*VIDA BASE*/
-    500,
+    5000,
     /*DANO*/
     15
     /*MORTO?*/

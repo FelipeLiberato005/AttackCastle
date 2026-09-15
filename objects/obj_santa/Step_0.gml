@@ -30,6 +30,8 @@ pega_energia_atual()
 /* GANHANDO ENERGIA */
 ganha_energia()
 
+abre_painel()
+
 
 cronometrando_habilidade()
 
@@ -37,3 +39,4 @@ aumenta_dano()
 
 show_debug_message(sprite_estado)
 //show_debug_message(tempo_habilidade)
+show_debug_message(energia_atual_p.energia)

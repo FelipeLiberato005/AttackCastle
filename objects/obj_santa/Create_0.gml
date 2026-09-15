@@ -308,7 +308,7 @@ estado_atack.roda = function()
     
     
     
-    if keyboard_check_pressed(vk_enter) && energia_atual_p == 100
+    if keyboard_check_pressed(vk_enter) && energia_atual_p.energia >= 100
     {
         troca_estado(estado_habilidade)
     }
@@ -326,6 +326,7 @@ estado_atack.roda = function()
 estado_habilidade.inicia = function()
 {
     //show_message("<<ENTARNDO NA HABILIDADE>>: " + string(global.arena))
+    energia_atual_p.energia = 0;
     sprite_estado = "estado_healer"
     lista_cura = []
     //instance_create_layer(96, 64, layer, obj_area_cura)
@@ -589,7 +590,11 @@ ganha_energia = function()
         
         if info.obj == object_index
         {
-            info.energia_atual.ganha_energia(0.10)
+            if sprite_estado != "estado_healer"
+            {
+                info.energia_atual.ganha_energia(0.10)    
+            }
+            
         }
     }
 }
@@ -609,6 +614,24 @@ zera_energia = function()
     }
 }
 
+
+abre_painel = function()
+{
+    var lista = array_length(global.personagens)  
+    if(mouse_check_button_pressed(mb_left)) 
+    { 
+        for( var i = 0; i < lista; i++)
+        {
+            var info = global.personagens[i]
+            
+            if(info.obj == object_index)
+            {
+                var painel = instance_create_layer(x, y, layer, obj_painel)
+                painel.sprite_index = info.painel_inicial
+            }   
+        } 
+    }
+}
 #endregion
 
 
@@ -671,7 +694,7 @@ pega_energia_atual = function()
         if info.obj == object_index
         {
             energia_atual_p = info.energia_atual
-            show_debug_message(" DANO CREATE OBJETO: " + string(energia_atual_p.energia) + "||" + " DANO CONSTRUTOR: " + string(info.energia_atual.energia))
+            //show_debug_message(" DANO CREATE OBJETO: " + string(energia_atual_p.energia) + "||" + " DANO CONSTRUTOR: " + string(info.energia_atual.energia))
         }
     }
 }
