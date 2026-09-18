@@ -17,7 +17,7 @@ tempo = 0
 vel = 0.5
 alvo_atual = noone;
 //vida = 0
-
+ ordem_lista = 0
 
 //_sprite = spr_santa
 //sprite_index = _sprite
@@ -169,6 +169,11 @@ procura_alvo.inicia = function()
         
         var alvo = global.arena[i];
         
+        if alvo.obj == object_index
+        {
+            ordem_lista = i;
+        }
+        
         if (!alvo.is_hero && instance_exists(alvo.obj))
         {
             array_push(lista_alvos, alvo);
@@ -190,7 +195,9 @@ procura_alvo.inicia = function()
 
 procura_alvo.roda = function()
 {
-    if keyboard_check_pressed(vk_enter) 
+    var num = pega_tclado_num((ordem_lista + 1))
+    show_debug_message(num)
+    if keyboard_check_pressed(ord(num)) && energia_atual_p.energia >= 100
     {
         troca_estado(estado_habilidade)
     }
@@ -307,8 +314,8 @@ estado_atack.roda = function()
     }
     
     
-    
-    if keyboard_check_pressed(vk_enter) && energia_atual_p.energia >= 100
+    var num = pega_tclado_num(ordem_lista + 1)
+    if keyboard_check_pressed(ord(num)) && energia_atual_p.energia >= 100
     {
         troca_estado(estado_habilidade)
     }

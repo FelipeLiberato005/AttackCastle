@@ -1,6 +1,5 @@
 draw_self()
-desenha_selecao()
-
 draw_set_font(fnt_personagens)
-desenha_habilidade()
+desenha_tecla_habilidade()
+desenha_barra_vida_energia()
 draw_set_font(-1)

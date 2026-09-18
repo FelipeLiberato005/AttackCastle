@@ -11,7 +11,6 @@
   "defaultScriptType":1,
   "Folders":[
     {"$GMFolder":"","%Name":"Font","folderPath":"folders/Font.yy","name":"Font","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"tiles","folderPath":"folders/tiles.yy","name":"tiles","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Object","folderPath":"folders/Object.yy","name":"Object","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"COLISORES","folderPath":"folders/Object/COLISORES.yy","name":"COLISORES","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"CONTROLADORES","folderPath":"folders/Object/CONTROLADORES.yy","name":"CONTROLADORES","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -29,6 +28,7 @@
     {"$GMFolder":"","%Name":"CAVALEIRO","folderPath":"folders/Sprite/PERSONAGENS/CAVALEIRO.yy","name":"CAVALEIRO","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"MAGA","folderPath":"folders/Sprite/PERSONAGENS/MAGA.yy","name":"MAGA","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"SANTA","folderPath":"folders/Sprite/PERSONAGENS/SANTA.yy","name":"SANTA","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"tiles","folderPath":"folders/tiles.yy","name":"tiles","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "ForcedPrefabProjectReferences":[
     {"link":"io.gamemaker.gm_filter_edgedetect-1.0.0","name":"io.gamemaker.gm_filter_edgedetect-1.0.0","path":"io.gamemaker.gm_filter_edgedetect-1.0.0.yyp",},
@@ -86,6 +86,7 @@
     {"id":{"name":"spr_santa_healer","path":"sprites/spr_santa_healer/spr_santa_healer.yy",},},
     {"id":{"name":"spr_santa_run","path":"sprites/spr_santa_run/spr_santa_run.yy",},},
     {"id":{"name":"spr_selecionado","path":"sprites/spr_selecionado/spr_selecionado.yy",},},
+    {"id":{"name":"spr_seta_lado","path":"sprites/spr_seta_lado/spr_seta_lado.yy",},},
     {"id":{"name":"spr_teste_escolha","path":"sprites/spr_teste_escolha/spr_teste_escolha.yy",},},
     {"id":{"name":"sprite_personagem_teste","path":"sprites/sprite_personagem_teste/sprite_personagem_teste.yy",},},
     {"id":{"name":"TileSet1","path":"tilesets/TileSet1/TileSet1.yy",},},

@@ -22,7 +22,32 @@ function define_sprite(_dir = 0, _sprite_side, _sprite_front, _sprite_back)
 
 
 
-
+function pega_tclado_num(valor)
+{
+    num_pad = noone
+   switch (valor) {
+	case 1:
+        num_pad = "1";
+        return num_pad;
+    break;  
+    case 2:
+        num_pad = "2";
+        return num_pad;
+    break;        
+    case 3:
+        num_pad = "3";
+        return num_pad;
+    break;   
+    case 4:
+        num_pad = "4";
+        return num_pad;
+    break;   
+    case 5:
+        num_pad = "5";
+        return num_pad;
+    break;   
+}
+}
 
 
 /*   DELETA PERSONAGEM DA LISTA ESCOLHIDA   */

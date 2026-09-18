@@ -14,7 +14,8 @@ function criar_personagem(
     _energia = 100,
     _escudo = 100,
     _painel_inicial = noone,
-    _painel_habilidade = noone
+    _painel_habilidade = spr_painel_santa_hab,
+    _desenha_painel = false
 ) constructor {
     
     /* NOME PERSONAGEM*/
@@ -69,6 +70,9 @@ function criar_personagem(
     /* PAINEL INFORMAÇÕES DO PERSONAGEM*/
     painel_inicial = _painel_inicial
     painel_habilidade = _painel_habilidade
+    
+    /* */
+    desenha_painel = _desenha_painel
 }
 
 
@@ -360,7 +364,7 @@ var enemy_3 = new criar_personagem(
     /*MORTO?*/
     )
 array_push(enemy_3.tipo_ataque, 
-        {nome:"ATK", recarga:1.3, dano: 18})
+        {nome:"ATK", recarga:1.3, dano: 40})
 
 #endregion
 
@@ -447,7 +451,7 @@ global.heroi_batalha = [santa, cavaleiro, arqueiro]
 
 
                     //HEROI
-global.arena = [santa, cavaleiro, /*, arqueiro, mago, orc,*/
+global.arena = [santa, cavaleiro,  arqueiro, mago, orc,
                     //ENEMYS
                 enemy_1, enemy_2, enemy_3/*, enemy_4, enemy_5*/]
 
