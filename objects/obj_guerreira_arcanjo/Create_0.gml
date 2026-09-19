@@ -10,6 +10,7 @@ distancia_enemy = 30
 alvo_enemy = undefined
 
 ataquei = false
+sprite_estado = noone
 
 cron = 0
 tempo = 0
@@ -101,6 +102,7 @@ estado_idle.roda = function()
 
 procura_alvo.inicia = function()
 {
+    sprite_estado = "estado_alvo"
     if alvo_atual != -4{
         if alvo_atual.is_morto == true
         {
@@ -147,7 +149,7 @@ procura_alvo.roda = function()
 #region DIREÇÃO AO ALVO
 estado_run.inicia = function()
 {
-    
+    sprite_estado = "estado_alvo"
 }
 
 
@@ -176,6 +178,7 @@ estado_atack.inicia = function()
 {
     vspeed = 0
     hspeed = 0
+    sprite_estado = "estado_atack"
     
 }
 
@@ -335,7 +338,18 @@ pega_sprit = function()
         var p = global.personagens[i]
         if p.obj == object_index
         {
-            sprite_index = p.sprite_run
+            if sprite_estado == "estado_segue" or sprite_estado == "estado_alvo" 
+            {
+                sprite_index = p.sprite_run  
+                image_alpha = 0.7  
+            }
+            else if sprite_estado == "estado_atack"
+            {
+                  sprite_index = p.sprite_atack
+            }
+            
+            
+            
         }
     }
 }

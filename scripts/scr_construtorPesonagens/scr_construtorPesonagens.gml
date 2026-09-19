@@ -132,17 +132,17 @@ array_push(santa.tipo_ataque,
 #region CAVALEIRO
 var cavaleiro = new criar_personagem(
     /*NOME*/
-    "CAVALEIRO",
+    "Guerreira Arcanjo",
     /*COR*/
     make_colour_rgb(255, 255, 255),
     /*OBJETO*/
-    obj_cavaleiro,
+    obj_guerreira_arcanjo,
     /*SPRITE_IDLE*/
     ,
     /*SPRITE_RUN*/
-    spr_cavaleiro,
+    spr_guerreira_arcanjo_run,
     /*SPRITE_ATACK*/
-    ,
+    spr_guerreira_arcanjo_atack,
     /*SPRITE_HAB*/
     ,
     /*HEROI?*/
@@ -152,12 +152,24 @@ var cavaleiro = new criar_personagem(
     /*DANO*/
     15
     /*MORTO?*/
+    ,
+    /*SELECIONADO?*/
+    ,
+    /*ENERGIA*/
+    ,
+    /*ESCUDO*/
+    ,
+    ,
+    /*PAINEL PRINCIPAL*/
+    spr_painel_santa_inicio,
+    /*PAINEL DE HABILIDADE*/
+    spr_painel_guerreira_arcanjo
     )
 
 /*STRUCT DE HABILIDADES*/
 array_push(cavaleiro.tipo_ataque,
         //NOME         RECARGA     DANO
-        {nome:"ATK", recarga:0.8, dano: 15},
+        {nome:"ATK", recarga:0.8, dano: 150},
         {nome:"ESCUDO", recarga:0.8, dano: 15})
 #endregion
 
