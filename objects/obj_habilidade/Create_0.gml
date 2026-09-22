@@ -5,30 +5,7 @@ desenhei = false
 
 
 
-troca_atual = function()
-{
-   if (keyboard_check_pressed(vk_up)) num_heroi++;
-    
-	if (keyboard_check_pressed(vk_down)) num_heroi--; 
-    
-	var _qtd = array_length(global.arena)
-	
-	num_heroi = clamp(num_heroi, 0, _qtd-1)
-    
-    
-}
 
-
-muda_painel = function()
-{
-   if (keyboard_check_pressed(vk_right)) troca_painel++;
-								
-	if (keyboard_check_pressed(vk_left)) troca_painel--;	
-	
-	
-	troca_painel = clamp(troca_painel, 0, 1)
-    
-}
 
 
 desenha_habilidades = function()
@@ -40,13 +17,13 @@ desenha_habilidades = function()
         
         if instance_exists(info.obj)
         {
-          var _x = 135 + (i * 45)
-          var _y = 235    
-          var painel_personagem = info.painel_habilidade  
-          if info.is_hero == true && info.desenha_painel == false
+          var _x = 60
+          var _y = 80  + (i * 120)
+          //var painel_personagem = info.painel_habilidade  
+          if info.is_hero == true
         {
-            var painel = instance_create_layer(_x, _y, layer, obj_painel)
-            painel.sprite_index = painel_personagem
+            
+            draw_sprite_ext(spr_painel_redondo_santa, 0, _x, _y, 1, 1, 0, c_white, 1)
             //show_message(info.nome + ":" + " Criado!")
             info.desenha_painel = true
         }     
@@ -84,9 +61,9 @@ desenha_barra_vida_energia = function()
         
         if instance_exists(info.obj)
         {
-            var _x = 135 + (i * 45)
-            var _y = 275
-            var _larg = 43
+            var _x = 35
+            var _y = 100 + (i * 120)
+            var _larg = 50
             var _alt = 6
             var cor = make_colour_rgb(0, 255, 100)
             var cor2 = make_colour_rgb(0, 100, 255)

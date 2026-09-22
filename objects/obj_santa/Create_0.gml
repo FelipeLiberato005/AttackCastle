@@ -531,7 +531,6 @@ pega_sprit = function()
             if sprite_estado == "estado_segue" or sprite_estado == "estado_alvo" 
             {
                 sprite_index = p.sprite_run  
-                image_alpha = 0.7  
             }
             else if sprite_estado == "estado_atack"
             {
@@ -540,7 +539,6 @@ pega_sprit = function()
             else if sprite_estado == "estado_healer"
             {
                 sprite_index = p.sprite_hab
-                image_alpha = 1
             }
             
             
@@ -599,7 +597,8 @@ ganha_energia = function()
         {
             if sprite_estado != "estado_healer"
             {
-                info.energia_atual.ganha_energia(0.10)    
+                info.energia_atual.ganha_energia(0.10)  
+                show_debug_message(info.escudo_atual.escudo)
             }
             
         }
@@ -617,6 +616,20 @@ zera_energia = function()
         if info.obj == object_index
         {
             info.energia_atual.perde_energia(100)
+        }
+    }
+}
+
+zera_escudo = function()
+{
+    var list = array_length(global.arena)
+    for(var i = 0; i < list; i++)
+    {
+        var info = global.arena[i]
+        
+        if info.obj == object_index
+        {
+            info.escudo_atual.perde_escudo(100)
         }
     }
 }
@@ -728,7 +741,7 @@ aumenta_dano = function()
 
 
 zera_energia()
-
+zera_escudo()
 pega_habilidade()
 
 

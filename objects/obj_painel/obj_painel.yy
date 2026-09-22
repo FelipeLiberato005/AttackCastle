@@ -9,8 +9,8 @@
   "name":"obj_painel",
   "overriddenProperties":[],
   "parent":{
-    "name":"SANTA-OBJ",
-    "path":"folders/Object/PERSONAGENS-OBJETOS/SANTA-OBJ.yy",
+    "name":"CONTROLADORES",
+    "path":"folders/Object/CONTROLADORES.yy",
   },
   "parentObjectId":null,
   "persistent":false,

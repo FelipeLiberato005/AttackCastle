@@ -11,8 +11,8 @@
   "name":"obj_guerreira_arcanjo",
   "overriddenProperties":[],
   "parent":{
-    "name":"PERSONAGENS-OBJETOS",
-    "path":"folders/Object/PERSONAGENS-OBJETOS.yy",
+    "name":"GUERREIRA-ARCANJO-OBJ",
+    "path":"folders/Object/PERSONAGENS-OBJETOS/GUERREIRA-ARCANJO-OBJ.yy",
   },
   "parentObjectId":null,
   "persistent":false,

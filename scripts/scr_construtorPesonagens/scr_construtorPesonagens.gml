@@ -129,8 +129,8 @@ array_push(santa.tipo_ataque,
 
 
 
-#region CAVALEIRO
-var cavaleiro = new criar_personagem(
+#region GUERREIRA-ARCANJO
+var guerreira_arcanjo = new criar_personagem(
     /*NOME*/
     "Guerreira Arcanjo",
     /*COR*/
@@ -167,10 +167,10 @@ var cavaleiro = new criar_personagem(
     )
 
 /*STRUCT DE HABILIDADES*/
-array_push(cavaleiro.tipo_ataque,
+array_push(guerreira_arcanjo.tipo_ataque,
         //NOME         RECARGA     DANO
-        {nome:"ATK", recarga:0.8, dano: 150},
-        {nome:"ESCUDO", recarga:0.8, dano: 15})
+        {nome:"ATK", recarga:0.8, dano: 40},
+        {nome:"ESCUDO", recarga:5, escudo: 15})
 #endregion
 
 
@@ -454,16 +454,16 @@ array_push(enemy_5.tipo_ataque,
 
 
 
-global.personagens = [santa, cavaleiro, arqueiro, mago, orc]
+global.personagens = [santa, guerreira_arcanjo, arqueiro, mago, orc]
 
 global.p_enemy = [enemy_1, enemy_2, enemy_3, enemy_4, enemy_5]
 
 
-global.heroi_batalha = [santa, cavaleiro, arqueiro]
+global.heroi_batalha = [santa, guerreira_arcanjo, arqueiro]
 
 
                     //HEROI
-global.arena = [santa, cavaleiro,  arqueiro, mago, orc,
+global.arena = [santa, guerreira_arcanjo,  arqueiro, mago, orc,
                     //ENEMYS
                 enemy_1, enemy_2, enemy_3/*, enemy_4, enemy_5*/]
 

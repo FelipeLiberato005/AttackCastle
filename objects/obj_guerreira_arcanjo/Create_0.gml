@@ -12,6 +12,9 @@ alvo_enemy = undefined
 ataquei = false
 sprite_estado = noone
 
+cron_tempo_escudo = 0
+usei_escudo = false
+
 cron = 0
 tempo = 0
 vel = 0.5
@@ -35,6 +38,7 @@ estado_idle         = new estado()
 procura_alvo        = new estado()
 estado_run          = new estado()
 estado_atack        = new estado()
+estado_habilidade        = new estado()
 estado_congelado    = new estado()
 estado_morte        = new estado()
 #endregion
@@ -217,6 +221,11 @@ estado_atack.roda = function()
         troca_estado(procura_alvo)
     }
     
+    if keyboard_check_pressed(vk_space)
+    {
+        troca_estado(estado_habilidade)
+    }
+    
 }
 
 #endregion
@@ -224,7 +233,35 @@ estado_atack.roda = function()
 
 
 
+#region ESTADO HABILIDADE
+estado_habilidade.inicia = function()
+{
+    //show_message("<<<ENTRANDO NO ESTADO DE HABILIDADE>>>")
+}
 
+estado_habilidade.roda = function()
+{
+    if usei_escudo == true
+    {
+        //show_message("<<<ENTRANDO NO ESCUDO TRUE>>>")
+        var list = array_length(global.arena)
+        for( var i = 0; i < list; i++)
+        {
+            var info = global.arena[0]
+        
+            if instance_exists(info.obj)
+            {
+                if info.is_hero == true
+                {
+                    info.escudo_atual.ganha_escudo(1)
+                }
+            }
+        }
+        cron_tempo_escudo = 0
+        usei_escudo = false
+    }
+}
+#endregion
 
 
 
@@ -341,7 +378,6 @@ pega_sprit = function()
             if sprite_estado == "estado_segue" or sprite_estado == "estado_alvo" 
             {
                 sprite_index = p.sprite_run  
-                image_alpha = 0.7  
             }
             else if sprite_estado == "estado_atack"
             {
@@ -351,6 +387,19 @@ pega_sprit = function()
             
             
         }
+    }
+}
+
+escudo_por_segundo = function()
+{
+    if usei_escudo == false
+    {
+        cron_tempo_escudo++    
+    }
+    
+    if cron_tempo_escudo >= room_speed * 1
+    {
+        usei_escudo = true
     }
 }
 

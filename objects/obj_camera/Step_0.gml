@@ -1,13 +1,7 @@
+troca_alvo()
 #region PROCURAR ALVO
-// Procura um alvo
-if (instance_exists(lista_alvos[0 or 1]))
-{
-    alvo = instance_find(global.batalha[0].obj, 0);
-}
-else
-{
-    alvo = noone;
-}
+
+alvo = global.arena[valor_alvo].obj
 #endregion
 
 #region DESTINO
@@ -17,10 +11,7 @@ if (alvo != noone)
     xTo = alvo.x;
     yTo = alvo.y;
 }
-else {
-	xTo = 20
-    yTo = 20
-}
+
 #endregion
 
 #region MOV DA CAMERA
@@ -43,3 +34,4 @@ camera_set_view_pos(
     y - altura * 0.5
 );
 #endregion
+ 
