@@ -84,6 +84,7 @@
     {"id":{"name":"spr_guerreira_arcanjo_atack","path":"sprites/spr_guerreira_arcanjo_atack/spr_guerreira_arcanjo_atack.yy",},},
     {"id":{"name":"spr_guerreira_arcanjo_run","path":"sprites/spr_guerreira_arcanjo_run/spr_guerreira_arcanjo_run.yy",},},
     {"id":{"name":"spr_maga_idle","path":"sprites/spr_maga_idle/spr_maga_idle.yy",},},
+    {"id":{"name":"spr_painel_batalha_guerreira","path":"sprites/spr_painel_batalha_guerreira/spr_painel_batalha_guerreira.yy",},},
     {"id":{"name":"spr_painel_guerreira_arcanjo","path":"sprites/spr_painel_guerreira_arcanjo/spr_painel_guerreira_arcanjo.yy",},},
     {"id":{"name":"spr_painel_redondo_santa","path":"sprites/spr_painel_redondo_santa/spr_painel_redondo_santa.yy",},},
     {"id":{"name":"spr_painel_santa_hab","path":"sprites/spr_painel_santa_hab/spr_painel_santa_hab.yy",},},

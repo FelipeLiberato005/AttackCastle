@@ -17,13 +17,13 @@ desenha_habilidades = function()
         
         if instance_exists(info.obj)
         {
-          var _x = 60
+          var _x = 150
           var _y = 80  + (i * 120)
           //var painel_personagem = info.painel_habilidade  
           if info.is_hero == true
         {
             
-            draw_sprite_ext(spr_painel_redondo_santa, 0, _x, _y, 1, 1, 0, c_white, 1)
+            draw_sprite_ext(info.painel_habilidade, 0, _x, _y, 1, 1, 0, c_white, 1)
             //show_message(info.nome + ":" + " Criado!")
             info.desenha_painel = true
         }     
@@ -61,16 +61,16 @@ desenha_barra_vida_energia = function()
         
         if instance_exists(info.obj)
         {
-            var _x = 35
-            var _y = 100 + (i * 120)
-            var _larg = 50
+            var _x = 168
+            var _y = 80 + (i * 120)
+            var _larg = 80
             var _alt = 6
             var cor = make_colour_rgb(0, 255, 100)
             var cor2 = make_colour_rgb(0, 100, 255)
             if info.is_hero == true
             {
-                info.vida_atual.desenha_vida(_x, _y - 1, _larg, _alt + 1, cor,,,false)
-                info.energia_atual.desenha_energia(_x, _y + 6, _larg, _alt, cor2,,,false)
+                info.vida_atual.desenha_vida(_x, _y, _larg, _alt + 1, cor,,,false)
+                info.energia_atual.desenha_energia(_x, _y + 18, _larg, _alt, cor2,,,false)
             }
         }
     }

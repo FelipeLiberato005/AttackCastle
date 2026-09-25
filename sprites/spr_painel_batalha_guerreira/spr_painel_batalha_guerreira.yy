@@ -1,6 +1,6 @@
 {
   "$GMSprite":"v2",
-  "%Name":"spr_painel_redondo_santa",
+  "%Name":"spr_painel_batalha_guerreira",
   "bboxMode":0,
   "bbox_bottom":101,
   "bbox_left":0,
@@ -12,16 +12,16 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"47a78aeb-1af6-4698-a6c7-75dfc2ecb59f","name":"47a78aeb-1af6-4698-a6c7-75dfc2ecb59f","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"f2576605-854a-4eec-b211-9a51d0b6076c","name":"f2576605-854a-4eec-b211-9a51d0b6076c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
   "height":102,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"c7ef4dc1-917f-4d77-a3cf-c6354fa186df","blendMode":0,"displayName":"default","isLocked":false,"name":"c7ef4dc1-917f-4d77-a3cf-c6354fa186df","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"1e91eb05-41cf-44d4-a47f-85487ce79ae1","blendMode":0,"displayName":"default","isLocked":false,"name":"1e91eb05-41cf-44d4-a47f-85487ce79ae1","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
-  "name":"spr_painel_redondo_santa",
+  "name":"spr_painel_batalha_guerreira",
   "nineSlice":{
     "$GMNineSliceData":"",
     "bottom":0,
@@ -44,15 +44,15 @@
   },
   "origin":4,
   "parent":{
-    "name":"SANTA",
-    "path":"folders/Sprite/PERSONAGENS/SANTA.yy",
+    "name":"GUERREIRA-ARCANJO",
+    "path":"folders/Sprite/PERSONAGENS/GUERREIRA-ARCANJO.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
     "$GMSequence":"v1",
-    "%Name":"spr_painel_redondo_santa",
+    "%Name":"spr_painel_batalha_guerreira",
     "autoRecord":true,
     "backdropHeight":768,
     "backdropImageOpacity":0.5,
@@ -76,7 +76,7 @@
       "resourceType":"KeyframeStore<MomentsEventKeyframe>",
       "resourceVersion":"2.0",
     },
-    "name":"spr_painel_redondo_santa",
+    "name":"spr_painel_batalha_guerreira",
     "playback":1,
     "playbackSpeed":30.0,
     "playbackSpeedType":0,
@@ -88,8 +88,8 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"47a78aeb-1af6-4698-a6c7-75dfc2ecb59f","path":"sprites/spr_painel_redondo_santa/spr_painel_redondo_santa.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"9e014325-5cbb-4d84-b03e-40ceb5150a4e","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"f2576605-854a-4eec-b211-9a51d0b6076c","path":"sprites/spr_painel_batalha_guerreira/spr_painel_batalha_guerreira.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"0b348236-6102-48dc-8fe0-92557d15e0b2","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

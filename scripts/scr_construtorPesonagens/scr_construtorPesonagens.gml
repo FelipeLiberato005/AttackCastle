@@ -115,7 +115,7 @@ var santa = new criar_personagem(
     /*PAINEL PRINCIPAL*/
     spr_painel_santa_inicio,
     /*PAINEL DE HABILIDADE*/
-    spr_painel_santa_hab
+    spr_painel_redondo_santa
     )
 
 /*STRUCT DE HABILIDADES*/
@@ -163,7 +163,7 @@ var guerreira_arcanjo = new criar_personagem(
     /*PAINEL PRINCIPAL*/
     spr_painel_santa_inicio,
     /*PAINEL DE HABILIDADE*/
-    spr_painel_guerreira_arcanjo
+    spr_painel_batalha_guerreira
     )
 
 /*STRUCT DE HABILIDADES*/
