@@ -147,7 +147,16 @@ estado_atack.roda = function()
         var p = global.arena[i]
         if p.obj == object_index
     {
-        if tempo_recarga >= (ataques[0][0].recarga * room_speed)
+		if alvo_atual.escudo_atual.escudo > 0
+		{
+			if tempo_recarga >= (ataques[0][0].recarga * room_speed)
+        {
+            alvo_atual.escudo_atual.perde_escudo(ataques[0][0].dano)
+            tempo_recarga = 0
+            
+        }
+		}else
+			if tempo_recarga >= (ataques[0][0].recarga * room_speed)
         {
             alvo_atual.vida_atual.perde_vida(ataques[0][0].dano)
             tempo_recarga = 0

@@ -1,8 +1,45 @@
 
+/* RECARREGA TEMPO DE USAR HABILIDADE */
+recarrega_habilidade()
+
+/* RODANDO MAQUINA DE ESTADOS */
 roda_estado()
-morre()
-tira_vida()
+
+/* TROCA SPRITE DO PERSONAGEM PARA O DO CONSTRUTOR */
 pega_sprit()
+
+/* RECARREGA TEMPO DE USAR ATAQUE*/
 recarrega_ataque()
-escudo_por_segundo()
-//show_debug_message(cron_tempo_escudo)
+
+
+/* MORRE E DELETA DA LISTA DE BATALHA */
+morre()
+
+/* FAZ NADA */
+seleciona_habilidade()
+
+/* PEGA DANO ATUAL APARTIR DO CONSTRUTOR */
+pega_dano_atual()
+
+
+/* PEGA ENERGIA ATUAL APARTIR DO CONSTRUTOR */
+pega_energia_atual()
+
+
+
+/* GANHANDO ENERGIA */
+ganha_energia()
+
+//abre_painel()
+
+
+cronometrando_habilidade()
+
+aumenta_dano()
+
+show_debug_message("usei: " + string(usei))
+//show_debug_message(sprite_estado)
+//show_debug_message(tempo_habilidade)
+//show_debug_message(energia_atual_p.energia)
+//show_debug_message(ordem_lista)
+

@@ -1,4 +1,5 @@
 #region VARIAVEIS
+
 batata = 0
 atual = 0
 
@@ -6,26 +7,24 @@ nome_personagem = undefined
 objeto_player = undefined
 
 
-distancia_enemy = 30
+distancia_enemy = 25
 alvo_enemy = undefined
 
 ataquei = false
-sprite_estado = noone
 
-cron_tempo_escudo = 0
-usei_escudo = false
 
 cron = 0
 tempo = 0
 vel = 0.5
-
+alvo_atual = noone;
 //vida = 0
+ ordem_lista = 0
 
-
-//_sprite = spr_cavaleiro
+//_sprite = spr_santa
 //sprite_index = _sprite
 image_xscale = -1
 #endregion
+
 
 randomise()
 
@@ -38,9 +37,9 @@ estado_idle         = new estado()
 procura_alvo        = new estado()
 estado_run          = new estado()
 estado_atack        = new estado()
-estado_habilidade        = new estado()
 estado_congelado    = new estado()
 estado_morte        = new estado()
+estado_habilidade   = new estado()
 #endregion
 
 
@@ -51,17 +50,74 @@ estado_morte        = new estado()
 
 #region VARIAVEIS ATRIBUTOS PRINCIPAIS
 
-
+/* VARIAVEL QUE GUARDARA O DANO ATUAL DO PERSONAGEM
+PARA FACILITAR NA HORA QUE PRECISAR USAR O DANO ATUAL DO PERSONAGEM
+NÃO PRECISARA PERCORRER A LISTA DE PERSONAGENS*/
 dano_atual_p = 0
 
 
+/* VARIAVEL QUE GUARDARA O ENERGIA ATUAL DO PERSONAGEM
+PARA FACILITAR NA HORA QUE PRECISAR USAR O DANO ATUAL DO PERSONAGEM
+NÃO PRECISARA PERCORRER A LISTA DE PERSONAGENS*/
+energia_atual_p = 0
+
+
+/* CRONOMETRO PARA LIMITAR O TEMPO EM QUE O PERSONAGEM ATACARÁ 
+SE NÃO FIZER ISSO, SERÁ DANO INFINITO A CADA MILESIMO,
+DESTRUINDO A DINAMICA DO GAME*/
 cronometro_carga = 0
 
+/* CRONOMETRO PARA LIMITAR O TEMPO EM QUE O PERSONAGEM CURARÁ 
+SE NÃO FIZER ISSO, SERÁ CURA INFINITA A CADA MILESIMO,
+DESTRUINDO A DINAMICA DO GAME*/
+tempo_habilidade = 0
+
+
+/* CRONOMETRO PARA LIMITAR O TEMPO EM QUE A HABILIDADE DO PERSONAGEM
+ESTARÁ ATIVADA*/
+cronometro_tempo_cura = 0
+
+/* SÓ UMA VARIAVEL PARA CONTROLAR O MOMENTO EM QUE POSSO CHAMAR O tempo_habilidade*/
+usei = true
+
+/* GUARDA ATAQUES QUE SERÁ PEGO LA DO CONSTRUTOR
+PARA FACILITAR NA HORA QUE PRECISAR USAR, PARA
+NÃO PRECISAR FAZER MILHARES DE LAÇOS*/
 ataques = []
+
+//LISTA DE ALVOS, É USADO NO procura_alvo
 lista_alvos = []
+
+/* LISTA DE PERSONAGENS QUE SERÁ CURADOS
+USADO NO estado_habilidade*/
+lista_escudo = []
+
+//VARIAVEL QUE GUARDARÁ  O ALVO ATUAL DO PERSONAGEM
 alvo_atual = noone
+
+/* CRONOMETRO PARA A RECARGA DE ATAQUE? NÃO LEMBRO*/
 tempo_recarga = 0
+
+//VARIAVEL PARA CONTROLAR O ATAQUE DO PERSONAGEM
 ataca = false
+
+/* VARIAVEL PARA O CONSTRUTOR SABER QUAL SPRITE DEVE USAR
+A IDEIA É FACILITAR NA HORA DE QUERER UMA SPRITE, INVÉS
+DE FAZER UM FOR DENTRO DO CONTRUTOR FOI CRIADO UM METODO
+"pega_sprit()" QUE ELE ESCOLHE A PARTIR DA STRING DESSA VARIAVEL
+A VARIAVEL MUDA APARTIR DA MAQUINDA DE ESTADOS, PERCEBE-SE QUE NO COMEÇO
+DE CADA ESTADO JA DEFINO O MEU sprite_estado
+*/
+sprite_estado = "estado_inicial"
+
+//INICIAR CRONOMETRO DA HABILIDADE DE CURA
+play_cron_habilidade = false
+
+/*Variavel para controlar qual sprite de habilidade vai ser usada*/
+//Tem duas sprite usada para a animação de habilidade
+//1 - levantando a espada para o alto 
+//2 - batentendo as asas
+primeira_hab_sprite = true
 #endregion
 
 
@@ -76,11 +132,11 @@ ataca = false
 
 
 
-
+/* ESTADO EM QUE O PERSONAGEM FICA PARADO (ESTADO INICIAL DO PERSONAGEM)*/
 #region ESTADO IDLE
 estado_idle.inicia = function()
 {
-    
+    sprite_estado = "estado_inicial"
 }
 
 
@@ -99,9 +155,7 @@ estado_idle.roda = function()
 
 
 
-
-
-
+/* ESTADO EM QUE O PERSONAGEM VERIFICA A LISTA DE INIMIGOS DA BATALHA E ESCOLHE UM PARA SEGUIR*/
 #region PROCURANDO O ALVO
 
 procura_alvo.inicia = function()
@@ -113,7 +167,7 @@ procura_alvo.inicia = function()
             global.arena = deleta_personagem(alvo_atual, global.arena);        
         }
     }
-    alvo_atual = noone;
+    //show_message("<<PROCURANDO ALVO>>: " + string(global.arena))
     var lista_alvos = [];
     
     
@@ -121,7 +175,12 @@ procura_alvo.inicia = function()
     {
         
         var alvo = global.arena[i];
-
+        
+        if alvo.obj == object_index
+        {
+            ordem_lista = i;
+        }
+        
         if (!alvo.is_hero && instance_exists(alvo.obj))
         {
             array_push(lista_alvos, alvo);
@@ -136,24 +195,30 @@ procura_alvo.inicia = function()
 
         troca_estado(estado_run);
     }
+    
+    
 }
 
 
 procura_alvo.roda = function()
 {
-    
+    var num = pega_tclado_num((ordem_lista + 1))
+    show_debug_message(num)
+    if keyboard_check_pressed(ord(num)) && energia_atual_p.energia >= 100
+    {
+        troca_estado(estado_habilidade)
+    }
 }
 #endregion
 
 
 
-
-
-
+/* ESTADO EM QUE O PERSONAGEM VAI EM DIREÇÃO AO SEU ALVO ESCOLHIDO NO ESTADO ANTERIOR*/
 #region DIREÇÃO AO ALVO
 estado_run.inicia = function()
 {
-    sprite_estado = "estado_alvo"
+    sprite_estado = "estado_segue"
+    
 }
 
 
@@ -166,110 +231,205 @@ estado_run.roda = function()
         return;
     }
     
-    
-    distancia_alvo(alvo_atual, estado_atack, 25, 2)
-
+    distancia_alvo(alvo_atual, estado_atack, distancia_enemy, 2)
+   
 }
 
 #endregion
 
 
-
-
+/* ESTADO EM QUE O PERSONAGEM ESTÁ PERTO O SUFICIENTE DO ALVO PARA ATACA-LO*/
 #region ESTADO ATACK
-
 estado_atack.inicia = function()
 {
+    sprite_estado = "estado_atack"
     vspeed = 0
     hspeed = 0
-    sprite_estado = "estado_atack"
+    
     
 }
 
 estado_atack.roda = function()
 {
-    if instance_exists(alvo_atual.obj)
-    {
-        if point_distance(x, y, alvo_atual.obj.x, alvo_atual.obj.y) > 50
-    {
-        troca_estado(estado_run)
-    }    
-    }
     
     var list = array_length(global.arena)
     
-    for (var i = 0; i < list; i++)
+    for( var i = 0; i < list; i++)
     {
-        var p = global.arena[i]
-        
-        
-        if p.obj == object_index
+      var p = global.arena[i]
+      var dano_critico = irandom(30)
+      //show_message(dano_critico)    
+      if p.obj == object_index && instance_exists(p.obj) 
     {
         if tempo_recarga >= (ataques[0][0].recarga * room_speed)
         {
-            alvo_atual.vida_atual.perde_vida(ataques[0][0].dano)
-            tempo_recarga = 0
+            if dano_critico > 0 && dano_critico <= 24
+            {
+                alvo_atual.vida_atual.perde_vida(p.dano_atual)
+                var k = instance_create_layer(alvo_atual.obj.x, alvo_atual.obj.y - 20, layer, obj_contagem)  
+                k.txtCura = p.dano_atual
+                tempo_recarga = 0    
+                
+                /* AUMENTANDO O DANO UTILIZANDO A PASSIVA*/
+                var x_aleatorio_dano = irandom_range(-5, 10)
+                var y_aleatorio_dano = irandom_range(5, 20)
+                passiva = (2/100) * p.dano_atual
+                p.dano_atual += passiva
+                var aumento_dano = instance_create_layer(x + x_aleatorio_dano , y - y_aleatorio_dano, layer, obj_contagem)
+                aumento_dano.txtCura = passiva
+                aumento_dano.cor = c_fuchsia 
+                
+            } 
+            else if dano_critico > 24
+            {
+                var critico = (p.dano_atual * 3)
+                alvo_atual.vida_atual.perde_vida(critico)
+                var k = instance_create_layer(alvo_atual.obj.x, alvo_atual.obj.y - 20, layer, obj_contagem)  
+                k.txtCura = critico
+                k.cor = c_aqua
+                tempo_recarga = 0  
+                
+                
+                /* AUMENTANDO O DANO UTILIZANDO A PASSIVA*/
+                passiva = (2/100) * p.dano_atual
+                p.dano_atual += passiva
+                var aumento_dano = instance_create_layer(x, y - 20, layer, obj_contagem)
+                aumento_dano.txtCura = passiva
+                aumento_dano.cor = c_fuchsia 
+                
+                
+                
+                 /* GANHANDO ENERGIA COM ATAQUES CRITICOS*/
+                var cor = make_colour_rgb(0, 100, 150)
+                var x_aleatorio_energia = irandom_range(-5, 10)
+                var y_aleatorio_energia = irandom_range(5, 20)
+                passiva_2 = 10
+                p.energia_atual.ganha_energia(passiva_2)
+                var energia = instance_create_layer(x + x_aleatorio_energia, y - y_aleatorio_energia, layer, obj_contagem)
+                energia.txtCura = passiva_2
+                energia.cor = cor 
+            }
             
-        }
+        } 
+    }    
     }
     
-    }
     
-    
-  
     if alvo_atual.is_morto == true{
         troca_estado(procura_alvo)
+        //global.arena = deleta_personagem(alvo_atual, global.arena)
     }
     
-    if keyboard_check_pressed(vk_space)
+    
+    var num = pega_tclado_num(ordem_lista + 1)
+    if keyboard_check_pressed(ord(num)) && energia_atual_p.energia >= 100
     {
         troca_estado(estado_habilidade)
     }
-    
 }
 
 #endregion
 
 
-
-
+/* ESTADO EM QUE O PERSONAGEM USA A HABILIDADE ESPECIAL DELE*/
+/* O PERSONAGEM PARA DE ATACAR O ALVO E APÓS O TERMINO DA HABILIDADE ELE PROCRA UM NOVO ALVO*/
+/* O ALVO PODE SER DIFERENTE DO ANTERIAR, POIS ELE CRIA UMA NOVA LISTA COM O INIMIGOS E PEGA UM ALEATORIO DE LA*/
+/* INFORMAÇÃ DA LISTA ESTA NO "procurando_alvo"*/
 #region ESTADO HABILIDADE
+
 estado_habilidade.inicia = function()
 {
-    //show_message("<<<ENTRANDO NO ESTADO DE HABILIDADE>>>")
+    //show_message("<<ENTARNDO NA HABILIDADE>>: " + string(global.arena))
+    energia_atual_p.energia = 0;
+    sprite_estado = "estado_escudo"
+    lista_escudo = []
+    //instance_create_layer(96, 64, layer, obj_area_cura)
+    var list = array_length(global.arena)
+    for( var i = 0; i < list; i++)
+    {
+        var info = global.arena[i]
+        
+        if info.is_hero != false
+        {
+            array_push(lista_escudo, info) 
+			//show_message("<<<Dentro do for inciaial>>>" + "Personagem adicionado a lista: " + "("+string(info.nome)+")")
+        }
+        
+    }
+	
+	
+	/*TESTANDO DUPLICIDADE DE PERSONAGENS DENTRO DA LISTA DE ESCUDOS*/
+	/*
+	show_message("<<<Fora do for no incial>>>" + " " + string(array_length(lista_escudo)))
+	
+	
+	var lista_teste_escudo = array_length(lista_escudo)
+	for( var i = 0; i < lista_teste_escudo; i++)
+	{
+		var list_esc = lista_escudo[i]
+		show_message(list_esc.nome)
+	}
+	*/
+	
 }
+
 
 estado_habilidade.roda = function()
 {
-    if usei_escudo == true
+    //show_message("<<<ENTRANDO NO RODA HABILIDADE>>>")
+   if cronometro_tempo_cura >= (ataques[0][1].tempo * room_speed) 
     {
-        //show_message("<<<ENTRANDO NO ESCUDO TRUE>>>")
-        var list = array_length(global.arena)
-        for( var i = 0; i < list; i++)
-        {
-            var info = global.arena[0]
-        
-            if instance_exists(info.obj)
-            {
-                if info.is_hero == true
-                {
-                    info.escudo_atual.ganha_escudo(1)
-                }
-            }
+        play_cron_habilidade = false
+        cronometro_tempo_cura = 0
+		primeira_hab_sprite = true
+        //show_message("<<SAINDO NA HABILIDADE>>: " + string(array_length(global.arena)))
+        troca_estado(procura_alvo)
+    } 
+   if usei == false
+   {
+       play_cron_habilidade = true        
+	   //show_message(lista_escudo)
+       var list = array_length(lista_escudo)
+       for( var i = 0; i < list; i++)
+       {
+		   //show_message("<<<DENTRO DO FOR DO RODA HABILIDADE>>>" + "Personagem: " +string(info.nome))
+           var info = lista_escudo[i]
+           
+           if instance_exists(info.obj)
+           {
+               var _x = info.obj.x
+               var _y = info.obj.y
+               escudo = ((ataques[0][1].escudo/100) * dano_atual_p)
+               
+               
+               info.escudo_atual.ganha_escudo(escudo)
+               var k = instance_create_layer(_x, _y - 20, layer, obj_contagem)    
+               k.txtCura = ("Escudo^ "+string(escudo))
+               k.cor = c_yellow
+            
+       
+           }
+            
         }
-        cron_tempo_escudo = 0
-        usei_escudo = false
-    }
-}
+        usei = true
+    
+   }    
+        
+        //show_message("Segundo: " + string(tempo_habilidade))
+       //show_debug_message("Cura: " + string(cura) + "Dano: " + string(dano_atual_p) )
+   
+   }
 #endregion
 
 
 
-
+/* FAZ NADA POR ENQUANTO 24/08/2026*/
+/* MAS JÁ É UMA IDEIA PARA CRIAR ESTADOS NEGATIVOS COMO SOFRER ATAQUES CONGELANTES POR EXEMPLO*/
 #region ESTADO CONGELADO
 
 estado_congelado.inicia = function()
 {
+    sprite_estado = "estado_congelado"
     var cor_rgb = make_colour_rgb(0, 200, 255)
     
     image_blend = cor_rgb
@@ -316,7 +476,7 @@ mostra_vida = function()
         if info.obj == object_index
     {
         draw_set_font(fnt_personagens)
-        info.vida_atual.desenha_vida(x - 7, y - 32, 15, 1.5,,,,false)
+        info.vida_atual.desenha_vida(x - 7, y - 32, 15, 1.5,c_green,,,false)
         draw_set_font(-1)
     }
     }
@@ -341,6 +501,23 @@ mostra_energia = function()
     }
 }
 
+mostra_escudo = function()
+{
+    var list = array_length(global.arena)
+    for( var i = 0; i < list; i++)
+    {
+        var info = global.arena[i]
+        if info.obj == object_index
+        {
+            draw_set_font(fnt_personagens)
+            info.escudo_atual.desenha_escudo(x - 7, y - 34, 15, 1.5,c_gray,,,false)
+            draw_set_font(-1)
+        }
+        
+    }
+}
+
+
 morre = function()
 {
     var list = array_length(global.arena)
@@ -359,6 +536,8 @@ morre = function()
         
     }
 }
+
+
 
 recarrega_ataque = function()
 {
@@ -383,27 +562,137 @@ pega_sprit = function()
             {
                   sprite_index = p.sprite_atack
             }
-            
+            else if sprite_estado == "estado_escudo"
+            {
+				if primeira_hab_sprite == true
+				{
+					sprite_index = p.sprite_hab
+				}
+				
+				
+				if sprite_index == p.sprite_hab
+				{
+					if image_index >= image_number - 1
+					{
+						sprite_index = spr_guerreira_arcanjo_hab_voo
+						primeira_hab_sprite = false
+					}
+				}
+				
+                
+            }
             
             
         }
     }
 }
 
-escudo_por_segundo = function()
+
+seleciona_habilidade = function()
 {
-    if usei_escudo == false
+    
+    var list = array_length(global.arena)
+    
+    for( var i = 0; i < list; i++)
     {
-        cron_tempo_escudo++    
+        var info = global.arena[i]
+        
+        if info.obj == object_index
+        {
+            info.is_selection = true
+        }
     }
     
-    if cron_tempo_escudo >= room_speed * 1
+}
+
+
+recarrega_habilidade = function()
+{
+    tempo_habilidade++
+    
+    if tempo_habilidade >= ataques[0][1].recarga
     {
-        usei_escudo = true
+        tempo_habilidade = 0
+        usei = false
     }
 }
 
 
+
+cronometrando_habilidade = function()
+{
+    if play_cron_habilidade == true
+    {
+     cronometro_tempo_cura++   
+    }
+}
+
+ganha_energia = function()
+{
+    var list = array_length(global.arena)
+    for( var i = 0; i < list; i++)
+    {
+        var info = global.arena[i]
+        
+        if info.obj == object_index
+        {
+            if sprite_estado != "estado_healer"
+            {
+                info.energia_atual.ganha_energia(0.10)  
+                show_debug_message(info.escudo_atual.escudo)
+            }
+            
+        }
+    }
+}
+
+
+zera_energia = function()
+{
+    var list = array_length(global.arena)
+    for( var i = 0; i < list; i++)
+    {
+        var info = global.arena[i]
+        
+        if info.obj == object_index
+        {
+            info.energia_atual.perde_energia(100)
+        }
+    }
+}
+
+zera_escudo = function()
+{
+    var list = array_length(global.arena)
+    for(var i = 0; i < list; i++)
+    {
+        var info = global.arena[i]
+        
+        if info.obj == object_index
+        {
+            info.escudo_atual.perde_escudo(100)
+        }
+    }
+}
+
+
+abre_painel = function()
+{
+    var lista = array_length(global.personagens)  
+    if(mouse_check_button_pressed(mb_left)) 
+    { 
+        for( var i = 0; i < lista; i++)
+        {
+            var info = global.personagens[i]
+            
+            if(info.obj == object_index)
+            {
+                var painel = instance_create_layer(x, y, layer, obj_painel)
+                painel.sprite_index = info.painel_inicial
+            }   
+        } 
+    }
+}
 #endregion
 
 
@@ -419,22 +708,6 @@ escudo_por_segundo = function()
 
 
 #region PEGANDO ATRIBUTOS DO CONSTRUTOR
-
-pegando_vida = function()
-{
-    var _list = array_length(global.personagens)
-    
-    for( var i = 0; i < _list; i++)
-    {
-        var personagem = global.personagens[i]
-        
-        if personagem.obj == object_index
-        {
-            vida = personagem.vida_base
-        }
-        
-    }
-}
 
 
 pega_habilidade = function()
@@ -457,33 +730,60 @@ pega_habilidade = function()
 
 
 
-tira_vida = function()
+pega_dano_atual = function()
 {
     var list = array_length(global.personagens)
-    
     for( var i = 0; i < list; i++)
     {
         var info = global.personagens[i]
-        
         if info.obj == object_index
         {
-            if keyboard_check_pressed(ord("B"))
-            {
-                info.vida_atual.perde_vida(50)
-            }
+            dano_atual_p = info.dano_atual
+            //show_debug_message(" DANO CREATE OBJETO: " + string(dano_atual_p) + "||" + " DANO CONSTRUTOR: " + string(info.dano_atual))
         }
     }
 }
 
 
+
+pega_energia_atual = function()
+{
+    var list = array_length(global.personagens)
+    for( var i = 0; i < list; i++)
+    {
+        var info = global.personagens[i]
+        if info.obj == object_index
+        {
+            energia_atual_p = info.energia_atual
+            //show_debug_message(" DANO CREATE OBJETO: " + string(energia_atual_p.energia) + "||" + " DANO CONSTRUTOR: " + string(info.energia_atual.energia))
+        }
+    }
+}
+
+aumenta_dano = function()
+{
+    var list = array_length(global.personagens)
+    for( var i = 0; i < list; i++)
+    {
+        var info = global.personagens[i]
+        if info.obj == object_index
+        {
+            if keyboard_check_pressed(ord("X"))
+            {
+                info.dano_atual++;
+            }
+        }
+    }
+}
+
 #endregion
 
 
 
+
+//zera_energia()
+zera_escudo()
 pega_habilidade()
-pega_sprit()
+
 
 inicia_estado(procura_alvo)
-
-
-

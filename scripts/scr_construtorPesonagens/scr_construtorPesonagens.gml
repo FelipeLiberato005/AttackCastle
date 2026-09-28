@@ -144,6 +144,7 @@ var guerreira_arcanjo = new criar_personagem(
     /*SPRITE_ATACK*/
     spr_guerreira_arcanjo_atack,
     /*SPRITE_HAB*/
+	spr_guerreira_arcanjo_hab_inicio
     ,
     /*HEROI?*/
     ,
@@ -170,7 +171,7 @@ var guerreira_arcanjo = new criar_personagem(
 array_push(guerreira_arcanjo.tipo_ataque,
         //NOME         RECARGA     DANO
         {nome:"ATK", recarga:0.8, dano: 40},
-        {nome:"ESCUDO", recarga:5, escudo: 15})
+        {nome:"ESCUDO", recarga:60, escudo: 100, tempo: 5})
 #endregion
 
 
@@ -463,9 +464,9 @@ global.heroi_batalha = [santa, guerreira_arcanjo, arqueiro]
 
 
                     //HEROI
-global.arena = [santa, guerreira_arcanjo,  arqueiro, mago, orc,
+global.arena = [santa, guerreira_arcanjo,  //arqueiro, mago, orc,
                     //ENEMYS
-                enemy_1, enemy_2, enemy_3/*, enemy_4, enemy_5*/]
+                enemy_1, /*enemy_2*/ enemy_3/*, enemy_4, enemy_5*/]
 
 
 

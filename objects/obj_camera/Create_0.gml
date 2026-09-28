@@ -27,7 +27,7 @@ troca_alvo = function()
         }
     }
     var numAlvos = array_length(lista_alvos) 
-    show_debug_message("alvos: " + string(array_length(lista_alvos)))
+    //show_debug_message("alvos: " + string(array_length(lista_alvos)))
 	valor_alvo = clamp(valor_alvo, 0, numAlvos-1)
     
 }
