@@ -82,6 +82,30 @@ function deleta_personagem(alvo, lista)
 ///@parameter {object} alvo_atual Alvo atual
 ///@parameter {function} estado_personagem Estado em que será direcionado após a condição ser atingida
 ///@param {num} valor_distancia Valor da distancia entre o objeto e o alvo atual
+function distancia_alvo(alvo_atual, estado_personagem, valor_distancia, menor_ou_maior)
+{
+    var _x = alvo_atual.obj.x;
+    var _y = alvo_atual.obj.y;
+
+    var _dist = point_distance(x, y, _x, _y);
+
+    if (menor_ou_maior == 1)
+    {
+        if (_dist > valor_distancia)
+        {
+            troca_estado(estado_personagem);
+        }
+    }
+    else
+    {
+        if (_dist < valor_distancia)
+        {
+            troca_estado(estado_personagem);
+        }
+    }
+}
+
+/*
 function distancia_alvo(alvo_atual, estado_personagem, valor_distancia, menor_ou_maior )
 {
     
@@ -124,7 +148,7 @@ function distancia_alvo(alvo_atual, estado_personagem, valor_distancia, menor_ou
     }
     
 }
-
+*/
 
 
 

@@ -224,7 +224,37 @@ estado_run.inicia = function()
 
 estado_run.roda = function()
 {
- 
+	if (!instance_exists(alvo_atual.obj))
+    {
+        troca_estado(procura_alvo);
+        return;
+    }
+
+    var _x = alvo_atual.obj.x;
+    var _y = alvo_atual.obj.y;
+
+    var _dist = point_distance(x, y, _x, _y);
+
+    if (_dist <= distancia_enemy)
+    {
+        troca_estado(estado_atack);
+        return;
+    }
+
+    direction = point_direction(x, y, _x, _y);
+
+    x += lengthdir_x(2, direction);
+    y += lengthdir_y(2, direction);
+
+    if (x < _x)
+    {
+        image_xscale = -1;
+    }
+    else
+    {
+        image_xscale = 1;
+    }
+	/*
     if (!instance_exists(alvo_atual.obj))
     {
         troca_estado(procura_alvo);
@@ -232,7 +262,7 @@ estado_run.roda = function()
     }
     
     distancia_alvo(alvo_atual, estado_atack, distancia_enemy, 2)
-   
+   */
 }
 
 #endregion
@@ -314,6 +344,34 @@ estado_atack.roda = function()
     }    
     }
     
+	
+	var _x = alvo_atual.obj.x;
+	var _y = alvo_atual.obj.y;
+
+	// Virar para o inimigo
+	if (x < _x)
+	{
+		image_xscale = -1;
+	}
+	else
+	{
+		image_xscale = 1;
+	}
+	
+	var _dist = point_distance(
+    x,
+    y,
+    alvo_atual.obj.x,
+    alvo_atual.obj.y
+	);
+
+	if (_dist > distancia_enemy)
+	{	
+		troca_estado(estado_run);
+		return;
+	}
+	
+	
     
     if alvo_atual.is_morto == true{
         troca_estado(procura_alvo)
