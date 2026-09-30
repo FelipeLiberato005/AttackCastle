@@ -224,6 +224,8 @@ estado_run.inicia = function()
 
 estado_run.roda = function()
 {
+	//GARANTINDO QUE O ALVO NÃO É INDEFINIDO
+	//CASO NÃO EXISTA ALVO ELE VOLTA PARA O ESTADO DE PROCURAR ALVO
 	if (!instance_exists(alvo_atual.obj))
     {
         troca_estado(procura_alvo);
@@ -234,7 +236,9 @@ estado_run.roda = function()
     var _y = alvo_atual.obj.y;
 
     var _dist = point_distance(x, y, _x, _y);
-
+	
+	//SE A DISTANCIA DO INIMIGO FOR IGUAL OU MENOR QUE O VALOR DA MINHA VARIAVEL distancia_enemy
+	//ELE AVANÇA PARA O ESTADO DE ATACK
     if (_dist <= distancia_enemy)
     {
         troca_estado(estado_atack);
@@ -254,15 +258,7 @@ estado_run.roda = function()
     {
         image_xscale = 1;
     }
-	/*
-    if (!instance_exists(alvo_atual.obj))
-    {
-        troca_estado(procura_alvo);
-        return;
-    }
-    
-    distancia_alvo(alvo_atual, estado_atack, distancia_enemy, 2)
-   */
+	
 }
 
 #endregion
@@ -344,6 +340,10 @@ estado_atack.roda = function()
     }    
     }
     
+	if alvo_atual.is_morto == true{
+        troca_estado(procura_alvo)
+        //global.arena = deleta_personagem(alvo_atual, global.arena)
+    }
 	
 	var _x = alvo_atual.obj.x;
 	var _y = alvo_atual.obj.y;
@@ -364,7 +364,9 @@ estado_atack.roda = function()
     alvo_atual.obj.x,
     alvo_atual.obj.y
 	);
-
+	
+	//SE A DISTANCIA DO ALVO FOR MAIOR QUE O VALOR DA VARIAVEL distancia_enemy
+	//VOLTA PARA O ESTADO DE RUN
 	if (_dist > distancia_enemy)
 	{	
 		troca_estado(estado_run);
@@ -373,12 +375,8 @@ estado_atack.roda = function()
 	
 	
     
-    if alvo_atual.is_morto == true{
-        troca_estado(procura_alvo)
-        //global.arena = deleta_personagem(alvo_atual, global.arena)
-    }
-    
-    
+    //PEGANDO O NUMERO DA TECLA DE ATIVAR HABILIDADE
+	//COM BASE NA SUA POSIÇÃO NA LISTA DO TIME
     var num = pega_tclado_num(ordem_lista + 1)
     if keyboard_check_pressed(ord(num)) && energia_atual_p.energia >= 100
     {
@@ -523,7 +521,7 @@ estado_congelado.roda = function()
 #region Metodos
 
 
-
+/*    MOSTRA BARRA DE VIDA NA TELA    */
 mostra_vida = function()
 {
     var list = array_length(global.personagens)
@@ -541,6 +539,7 @@ mostra_vida = function()
     
 }
 
+/*    MOSTRA BARRA DE ENERGIA NA TELA    */
 mostra_energia = function()
 {
     
@@ -559,6 +558,8 @@ mostra_energia = function()
     }
 }
 
+
+/*    MOSTRA BARRA DE ESCUDO NA TELA    */
 mostra_escudo = function()
 {
     var list = array_length(global.arena)
@@ -576,6 +577,7 @@ mostra_escudo = function()
 }
 
 
+/*    VERIFICA SE A VIDA DO PERSONAGEM ESTÁ ABAIXO DE 0    */
 morre = function()
 {
     var list = array_length(global.arena)
@@ -596,13 +598,13 @@ morre = function()
 }
 
 
-
+/*    CARREGA ATAQUE (PARA TER UM INTERVALO ENTRE UM ATAQUE E OUTRO)    */
 recarrega_ataque = function()
 {
     tempo_recarga++;
 }
 
-
+/*    PEGA A SPRITE ATUAL APARTIR DA VARIAVEL sprite_estado    */
 pega_sprit = function()
 {
      var list = array_length(global.personagens)
@@ -646,6 +648,7 @@ pega_sprit = function()
 }
 
 
+/*    SEM UTILIDADE POR ENQUANTO 30/09/2026    */
 seleciona_habilidade = function()
 {
     
@@ -664,6 +667,7 @@ seleciona_habilidade = function()
 }
 
 
+/*    CARREGA VARIAVEL QUE CONTRA QUANDO PODE ATIVAR A HABILIDADE    */
 recarrega_habilidade = function()
 {
     tempo_habilidade++
@@ -676,7 +680,7 @@ recarrega_habilidade = function()
 }
 
 
-
+/*    CARREGA HABILIDADE (PARA NÃO TER UMA QUANTIDADE ABSURDA DE HABILIDADE POR MILISEGUNDOS)    */
 cronometrando_habilidade = function()
 {
     if play_cron_habilidade == true
@@ -685,6 +689,7 @@ cronometrando_habilidade = function()
     }
 }
 
+/*    GANHA UMA CERTA QUANTIDADE DE ENERGIA POR SEGUNDO    OBS: TEM OUTRAS FORMAS DE CONSEGUIR ENERGIA*/
 ganha_energia = function()
 {
     var list = array_length(global.arena)
@@ -704,7 +709,7 @@ ganha_energia = function()
     }
 }
 
-
+/*    ZERA ENERGIA    */
 zera_energia = function()
 {
     var list = array_length(global.arena)
@@ -719,6 +724,7 @@ zera_energia = function()
     }
 }
 
+/*    ZERA ESCUDO    */
 zera_escudo = function()
 {
     var list = array_length(global.arena)
@@ -733,7 +739,7 @@ zera_escudo = function()
     }
 }
 
-
+/*    ABRE UM PAINEL QUE SERVE PARA NADA ATÉ O DIA DE HOJE 30/09/2026    */
 abre_painel = function()
 {
     var lista = array_length(global.personagens)  
@@ -767,7 +773,9 @@ abre_painel = function()
 
 #region PEGANDO ATRIBUTOS DO CONSTRUTOR
 
-
+/*    PEGA INFORMAÇÕES DE HABILIDADE DO CONSTRUTOR E TRAS PARA O OBJETO   
+      A IDEIA É TER UM CONTROLE MELHOR DAS INFORMAÇÕES DO CONSRUTOR
+	  SEM PRECISAR FAZER UM FOR A TODO MOMENTO*/
 pega_habilidade = function()
 {
     
@@ -787,7 +795,7 @@ pega_habilidade = function()
 }
 
 
-
+/*    PEGA INFORMAÇÃO DO DANO ATUAL DO CONSTRUTOR E PASSA PARA UMA VARIAVEL DO OBJETO    */
 pega_dano_atual = function()
 {
     var list = array_length(global.personagens)
@@ -803,7 +811,7 @@ pega_dano_atual = function()
 }
 
 
-
+/*    PEGA INFORMAÇÃO DA ENERGIA ATUAL DO CONSTRUTOR E PASSA PARA UMA VARIAVEL DO OBJETO    */
 pega_energia_atual = function()
 {
     var list = array_length(global.personagens)
@@ -818,21 +826,6 @@ pega_energia_atual = function()
     }
 }
 
-aumenta_dano = function()
-{
-    var list = array_length(global.personagens)
-    for( var i = 0; i < list; i++)
-    {
-        var info = global.personagens[i]
-        if info.obj == object_index
-        {
-            if keyboard_check_pressed(ord("X"))
-            {
-                info.dano_atual++;
-            }
-        }
-    }
-}
 
 #endregion
 

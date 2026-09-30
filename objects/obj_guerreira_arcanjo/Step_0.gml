@@ -32,12 +32,12 @@ ganha_energia()
 
 //abre_painel()
 
-
+/*    RODANDO CRONOMETRO DA HABILIDADE    */
 cronometrando_habilidade()
 
-aumenta_dano()
 
-show_debug_message("usei: " + string(usei))
+
+//show_debug_message("usei: " + string(usei))
 //show_debug_message(sprite_estado)
 //show_debug_message(tempo_habilidade)
 //show_debug_message(energia_atual_p.energia)
